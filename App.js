@@ -4,6 +4,7 @@ import { StyleSheet, Text, View, TouchableOpacity, FlatList } from 'react-native
 import { AntDesign } from "@expo/vector-icons";
 import palette from './palette';
 import tempData from "./tempData";
+import CosplayList from "./components/CosplayList";
 
 export default class App extends React.Component {
   render() {
@@ -26,7 +27,11 @@ export default class App extends React.Component {
             keyExtractor={item => item.cosplay}
             horizontal={true}
             showsHorizontalScrollIndicator={true}
-            renderItem={({ item }) => (<View><Text>{item.cosplay}</Text></View>)} />
+            renderItem={({ item }) => (
+
+              <CosplayList cosplayList={item} />
+
+            )} />
         </View>
       </View>
     );
