@@ -1,6 +1,6 @@
 import React from "react";
 import { StyleSheet, Text, View, TouchableOpacity, Modal } from "react-native";
-import ElementsModal from "./ElementsModal";
+import ElementsModal from "../elements/ElementsModal";
 
 export default class CosplayList extends React.Component {
   state = {

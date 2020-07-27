@@ -2,13 +2,12 @@ import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, FlatList, Modal, ActivityIndicator } from 'react-native';
 import { AntDesign } from "@expo/vector-icons";
-import palette from './palette';
-import CosplayList from "./components/CosplayList";
-import CreateCosplayForm from "./components/CreateCosplayForm";
-import Firebase from "./Firebase";
+import palette from '../palette';
+import CosplayList from "./cosplays/CosplayList";
+import CreateCosplayForm from "./cosplays/CreateCosplayForm";
+import Firebase from "../Firebase";
 
 import { Platform, InteractionManager } from 'react-native';
-
 
 export default class App extends React.Component {
   state = {

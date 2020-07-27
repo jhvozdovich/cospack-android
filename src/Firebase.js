@@ -1,6 +1,6 @@
 import * as firebase from "firebase";
 import "@firebase/firestore";
-import config from "./config.js"
+import config from "../config.js"
 
 const firebaseConfig = config;
 
