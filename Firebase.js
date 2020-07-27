@@ -25,10 +25,8 @@ class Firebase {
   }
 
   getCosplays(callback) {
-    let db = firebase.firestore()
-      .collection("users")
-      .doc(this.userId)
-      .collection("cosplays")
+    // change to order by completion/sort options?
+    let db = this.db.orderBy("cosplay");
 
     this.unsubscribe = db.onSnapshot(snapshot => {
       cosplayLists = []
@@ -40,8 +38,24 @@ class Firebase {
     })
   }
 
+  addCosplayList(cosplayList) {
+    let db = this.db;
+    db.add(cosplayList);
+  }
+
+  updateCosplayList(cosplayList) {
+    let db = this.db.doc(cosplayList.id).update(cosplayList);
+  }
+
   get userId() {
     return firebase.auth().currentUser.uid
+  }
+
+  get db() {
+    return firebase.firestore()
+      .collection("users")
+      .doc(this.userId)
+      .collection("cosplays");
   }
 
   detach() {

@@ -3,10 +3,12 @@ import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, FlatList, Modal, ActivityIndicator } from 'react-native';
 import { AntDesign } from "@expo/vector-icons";
 import palette from './palette';
-import tempData from "./tempData";
 import CosplayList from "./components/CosplayList";
 import CreateCosplayForm from "./components/CreateCosplayForm";
 import Firebase from "./Firebase";
+
+import { Platform, InteractionManager } from 'react-native';
+
 
 export default class App extends React.Component {
   state = {
@@ -44,15 +46,16 @@ export default class App extends React.Component {
   }
 
   addCosplayList = cosplay => {
-    this.setState({ cosplayLists: [...this.state.cosplayLists, { ...cosplay, id: this.state.cosplayLists.length + 1, elements: [] }] })
+    firebase.addCosplayList({
+      cosplay: cosplay.cosplay,
+      color: cosplay.color,
+      series: cosplay.series,
+      elements: []
+    });
   }
 
   updateCosplayList = cosplay => {
-    this.setState({
-      cosplayLists: this.state.cosplayLists.map(element => {
-        return element.id === cosplay.id ? cosplay : element;
-      })
-    })
+    firebase.updateCosplayList(cosplay);
   }
 
   render() {
@@ -122,13 +125,46 @@ const styles = StyleSheet.create({
 
 
 // FOR ANDROID ISSUES WITH EXPO
-// import _ from 'lodash';
-// import { Colors } from 'react-native/Libraries/NewAppScreen';
+const _setTimeout = global.setTimeout;
+const _clearTimeout = global.clearTimeout;
+const MAX_TIMER_DURATION_MS = 60 * 1000;
+if (Platform.OS === 'android') {
+  // Work around issue `Setting a timer for long time`
+  // see: https://github.com/firebase/firebase-js-sdk/issues/97
+  const timerFix = {};
+  const runTask = (id, fn, ttl, args) => {
+    const waitingTime = ttl - Date.now();
+    if (waitingTime <= 1) {
+      InteractionManager.runAfterInteractions(() => {
+        if (!timerFix[id]) {
+          return;
+        }
+        delete timerFix[id];
+        fn(...args);
+      });
+      return;
+    }
 
-// YellowBox.ignoreWarnings(['Setting a timer']);
-// const _console = _.clone(console);
-// console.warn = message => {
-//   if (message.indexOf('Setting a timer') <= -1) {
-//     _console.warn(message);
-//   }
-// };
+    const afterTime = Math.min(waitingTime, MAX_TIMER_DURATION_MS);
+    timerFix[id] = _setTimeout(() => runTask(id, fn, ttl, args), afterTime);
+  };
+
+  global.setTimeout = (fn, time, ...args) => {
+    if (MAX_TIMER_DURATION_MS < time) {
+      const ttl = Date.now() + time;
+      const id = '_lt_' + Object.keys(timerFix).length;
+      runTask(id, fn, ttl, args);
+      return id;
+    }
+    return _setTimeout(fn, time, ...args);
+  };
+
+  global.clearTimeout = id => {
+    if (typeof id === 'string' && id.startsWith('_lt_')) {
+      _clearTimeout(timerFix[id]);
+      delete timerFix[id];
+      return;
+    }
+    _clearTimeout(id);
+  };
+}
