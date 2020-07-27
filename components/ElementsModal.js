@@ -22,18 +22,6 @@ export default class ElementsModal extends React.Component {
     Keyboard.dismiss(); ''
   }
 
-  rightActions = (dragX, index) => {
-    return (
-      <TouchableOpacity>
-        <Animated.View>
-          <Animated.Text>
-            Delete
-          </Animated.Text>
-        </Animated.View>
-      </TouchableOpacity>
-    )
-  }
-
   render() {
     const cosplayList = this.props.cosplayList
     const elementsCount = cosplayList.elements.length
@@ -54,14 +42,12 @@ export default class ElementsModal extends React.Component {
               data={cosplayList.elements}
               renderItem={({ item, index }) => {
                 return (
-                  <Swipeable renderRightActions={(_, dragX) => this.rightActions(dragX, index)}>
-                    <View style={styles.listContainer}>
-                      <TouchableOpacity onPress={() => this.toggleCompletedElement(index)}>
-                        <Ionicons name={item.completed ? "ios-square" : "ios-square-outline"} size={24} color={"grey"} style={{ width: 32 }} />
-                      </TouchableOpacity>
-                      <Text style={{ fontSize: 20, color: item.completed ? "darkgrey" : "black" }}>{item.name}</Text>
-                    </View>
-                  </Swipeable>
+                  <View style={styles.listContainer}>
+                    <TouchableOpacity onPress={() => this.toggleCompletedElement(index)}>
+                      <Ionicons name={item.completed ? "ios-square" : "ios-square-outline"} size={24} color={"grey"} style={{ width: 32 }} />
+                    </TouchableOpacity>
+                    <Text style={{ fontSize: 20, color: item.completed ? "darkgrey" : "black" }}>{item.name}</Text>
+                  </View>
                 )
               }}
             />
