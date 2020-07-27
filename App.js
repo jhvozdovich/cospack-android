@@ -9,11 +9,20 @@ import CreateCosplayForm from "./components/CreateCosplayForm";
 
 export default class App extends React.Component {
   state = {
-    addCosplayVisible: false
+    addCosplayVisible: false,
+    cosplayList: tempData
   }
 
   toggleAddCosplayModal() {
     this.setState({ addCosplayVisible: !this.state.addCosplayVisible })
+  }
+
+  renderCosplayList = (cosplayList) => {
+    return <CosplayList cosplayList={cosplayList} />
+  }
+
+  addCosplayList = list => {
+
   }
 
   render() {
@@ -22,7 +31,7 @@ export default class App extends React.Component {
         <Modal animationType="slide"
           visible={this.state.addCosplayVisible}
           onRequestClose={() => this.toggleAddCosplayModal()}>
-          <CreateCosplayForm closeForm={() => this.toggleAddCosplayModal()} />
+          <CreateCosplayForm closeForm={() => this.toggleAddCosplayModal()} addCospalyList={this.addCosplayList} />
         </Modal>
         <View style={{ flexDirection: "row" }}>
           <Text style={styles.title}>
@@ -35,17 +44,14 @@ export default class App extends React.Component {
             <Text style={styles.button}>+ Add Cosplay</Text>
           </TouchableOpacity>
         </View>
-        <View style={{ height: 300, margin: 20 }}>
+        <View style={{ height: 300, marginVertical: 20 }}>
           <FlatList
-            data={tempData}
+            data={this.state.cosplayList}
             keyExtractor={item => item.cosplay}
             horizontal={true}
             showsHorizontalScrollIndicator={false}
-            renderItem={({ item }) => (
-
-              <CosplayList cosplayList={item} />
-
-            )} />
+            renderItem={({ item }) =>
+              this.renderCosplayList(item)} />
         </View>
       </View >
     );

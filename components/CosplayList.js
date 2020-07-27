@@ -1,18 +1,35 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity, Modal } from "react-native";
+import ElementsModal from "./ElementsModal";
 
-export default CosplayList = ({ cosplayList }) => {
-  // const percentComplete = cosplayList.toDos.filter(todo => todo.completed).length / (cosplayList.toDos.length)
-  return (
-    <View style={[styles.container, { backgroundColor: cosplayList.color }]}>
-      <Text style={styles.cosplays}>{cosplayList.cosplay}</Text>
+export default class CosplayList extends React.Component {
+  state = {
+    showCosplayListVisible: false
+  }
+  toggleCosplayListModal() {
+    this.setState({ showCosplayListVisible: !this.state.showCosplayListVisible })
+  }
+
+  render() {
+    const cosplayList = this.props.cosplayList
+    // const percentComplete = cosplayList.toDos.filter(todo => todo.completed).length / (cosplayList.toDos.length)
+    return (
       <View>
-        <View>
-          <Text>Percent Complete: 27%</Text>
-        </View>
-      </View>
-    </View>
-  )
+        <Modal animationType="slide" visible={this.state.showCosplayListVisible} onRequestClose={() => this.toggleCosplayListModal()}>
+          <ElementsModal cosplayList={cosplayList} closeElementsModal={() => this.toggleCosplayListModal()} />
+        </Modal>
+        <TouchableOpacity style={[styles.container, { backgroundColor: cosplayList.color }]}
+          onPress={() => this.toggleCosplayListModal()}>
+          <Text style={styles.cosplays}>{cosplayList.cosplay}</Text>
+          <View>
+            <View>
+              <Text>Percent Complete: 27%(hard coded)</Text>
+            </View>
+          </View>
+        </TouchableOpacity>
+      </View >
+    )
+  }
 }
 
 const styles = StyleSheet.create({
