@@ -1,6 +1,7 @@
 import React from "react";
-import { StyleSheet, Text, View, SafeAreaView, TouchableOpacity, KeyboardAvoidingView, TextInput, Keyboard } from "react-native";
+import { StyleSheet, Text, View, SafeAreaView, TouchableOpacity, KeyboardAvoidingView, FlatList, TextInput, Keyboard, Animated } from "react-native";
 import { AntDesign, Ionicons } from "@expo/vector-icons";
+import { Swipeable } from "react-native-gesture-handler";
 
 export default class ElementsModal extends React.Component {
   state = {
@@ -18,7 +19,19 @@ export default class ElementsModal extends React.Component {
     cosplayList.elements.push({ name: this.state.newElement, completed: false })
     this.props.updateCosplayList(cosplayList)
     this.setState({ newElement: "" })
-    Keyboard.dismiss();
+    Keyboard.dismiss(); ''
+  }
+
+  rightActions = (dragX, index) => {
+    return (
+      <TouchableOpacity>
+        <Animated.View>
+          <Animated.Text>
+            Delete
+          </Animated.Text>
+        </Animated.View>
+      </TouchableOpacity>
+    )
   }
 
   render() {
@@ -29,6 +42,7 @@ export default class ElementsModal extends React.Component {
     return (
       // Troubleshoot keyboard avoiding views
       <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding">
+
         <TouchableOpacity style={{ postion: "absolute", padding: 10 }} onPress={this.props.closeElementsModal}>
           <AntDesign name="close" size={24} color={palette.green4} />
         </TouchableOpacity>
@@ -36,19 +50,27 @@ export default class ElementsModal extends React.Component {
           <Text style={[styles.title, { borderBottomColor: cosplayList.color }]}>{cosplayList.cosplay}</Text>
           <Text>{completeCount} of {elementsCount}</Text>
           <View style={{ paddingVertical: 32 }}>
-            {
-              cosplayList.elements.map((element, index) =>
-                <View style={styles.listContainer}>
-                  <TouchableOpacity onPress={() => this.toggleCompletedElement(index)}>
-                    <Ionicons name={element.completed ? "ios-square" : "ios-square-outline"} size={24} color={"grey"} style={{ width: 32 }} />
-                  </TouchableOpacity>
-                  <Text style={{ fontSize: 20, color: element.completed ? "darkgrey" : "black" }}>{element.name}</Text>
-                </View>)
-            }
+            <FlatList
+              data={cosplayList.elements}
+              renderItem={({ item, index }) => {
+                return (
+                  <Swipeable renderRightActions={(_, dragX) => this.rightActions(dragX, index)}>
+                    <View style={styles.listContainer}>
+                      <TouchableOpacity onPress={() => this.toggleCompletedElement(index)}>
+                        <Ionicons name={item.completed ? "ios-square" : "ios-square-outline"} size={24} color={"grey"} style={{ width: 32 }} />
+                      </TouchableOpacity>
+                      <Text style={{ fontSize: 20, color: item.completed ? "darkgrey" : "black" }}>{item.name}</Text>
+                    </View>
+                  </Swipeable>
+                )
+              }}
+            />
           </View>
+        </SafeAreaView>
 
 
-          {/* Troubleshoot keyboard avoiding */}
+        {/* Troubleshoot keyboard avoiding */}
+        <SafeAreaView style={styles.container} style={{ marginTop: 10, marginHorizontal: 30 }} >
           <View>
             <TextInput
               style={[styles.input, { borderColor: cosplayList.color }]} onChangeText={text => this.setState({ newElement: text })}
@@ -61,7 +83,8 @@ export default class ElementsModal extends React.Component {
             </TouchableOpacity>
           </View>
         </SafeAreaView>
-      </KeyboardAvoidingView>
+
+      </KeyboardAvoidingView >
     )
   }
 }

@@ -2,9 +2,6 @@ import React from "react";
 import { StyleSheet, Text, View, KeyboardAvoidingView, TouchableOpacity, TextInput } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import palette from "../palette";
-import { Colors } from "react-native/Libraries/NewAppScreen";
-import tempData from "../tempData";
-import CosplayList from "./CosplayList";
 
 export default class CreateCosplayForm extends React.Component {
   colorOptions = ["#BBF1F1", "#89D5D2", "#35B5AC", "#008085", "#BBF1F7", "#89D5D8", "#35B5AA", "#008089"]
