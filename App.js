@@ -1,16 +1,38 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, FlatList, Modal } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, FlatList, Modal, ActivityIndicator } from 'react-native';
 import { AntDesign } from "@expo/vector-icons";
 import palette from './palette';
 import tempData from "./tempData";
 import CosplayList from "./components/CosplayList";
 import CreateCosplayForm from "./components/CreateCosplayForm";
+import Firebase from "./Firebase";
 
 export default class App extends React.Component {
   state = {
     addCosplayVisible: false,
-    cosplayLists: tempData
+    cosplayLists: [],
+    user: {},
+    loading: true
+  }
+
+  componentDidMount() {
+    firebase = new Firebase((error, user) => {
+      if (error) {
+        return alert(`Something went wrong D: ${error}`)
+      }
+
+      firebase.getCosplays(cosplayLists => {
+        this.setState({ cosplayLists, user }, () => {
+          this.setState({ loading: false })
+        })
+      })
+      this.setState({ user });
+    });
+  }
+
+  componentWillUnmount() {
+    firebase.detach();
   }
 
   toggleAddCosplayModal() {
@@ -34,6 +56,14 @@ export default class App extends React.Component {
   }
 
   render() {
+    if (this.state.loading) {
+      return (
+        <View>
+          <ActivityIndicator size="large" color={palette.green2} />
+        </View>
+      )
+    }
+
     return (
       <View style={styles.container} >
         <Modal animationType="slide"
@@ -41,6 +71,9 @@ export default class App extends React.Component {
           onRequestClose={() => this.toggleAddCosplayModal()}>
           <CreateCosplayForm closeForm={() => this.toggleAddCosplayModal()} addCosplayList={this.addCosplayList} />
         </Modal>
+        <View>
+          <Text>User: {this.state.user.uid}</Text>
+        </View>
         <View style={{ flexDirection: "row" }}>
           <Text style={styles.title}>
             Cos<Text style={{ fontWeight: "normal", color: palette.green3 }}>Pack</Text>
@@ -55,7 +88,7 @@ export default class App extends React.Component {
         <View style={{ height: 300, marginVertical: 20 }}>
           <FlatList
             data={this.state.cosplayLists}
-            keyExtractor={item => item.cosplay}
+            keyExtractor={item => item.id.toString()}
             horizontal={true}
             showsHorizontalScrollIndicator={false}
             renderItem={({ item }) =>
@@ -85,3 +118,17 @@ const styles = StyleSheet.create({
     fontSize: 20
   }
 });
+
+
+
+// FOR ANDROID ISSUES WITH EXPO
+// import _ from 'lodash';
+// import { Colors } from 'react-native/Libraries/NewAppScreen';
+
+// YellowBox.ignoreWarnings(['Setting a timer']);
+// const _console = _.clone(console);
+// console.warn = message => {
+//   if (message.indexOf('Setting a timer') <= -1) {
+//     _console.warn(message);
+//   }
+// };
