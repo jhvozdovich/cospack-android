@@ -114,6 +114,9 @@ _Have a bug or an issue with this application? [Open a new issue](https://github
 
 <img src="./public/UserSurveys/Structure.jpg" width=30% /> <img src="./public/UserSurveys/Categories-1.jpg" width=30% /> <img src="./public/UserSurveys/Categories-2.jpg" width=30% /> <img src="./public/UserSurveys/Calendar.jpg" width=30% />
 
+### Resources
+* [Firebase with React Native YouTube Series](https://www.youtube.com/watch?v=s-kKhO9nnEY&list=PLqtWgQ5BRLPvbmeIYf769yb25g4W8NUZo)
+
 #### License
 
 This software is licensed under the MIT license.
