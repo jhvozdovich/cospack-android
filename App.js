@@ -10,7 +10,7 @@ import CreateCosplayForm from "./components/CreateCosplayForm";
 export default class App extends React.Component {
   state = {
     addCosplayVisible: false,
-    cosplayList: tempData
+    cosplayLists: tempData
   }
 
   toggleAddCosplayModal() {
@@ -18,11 +18,19 @@ export default class App extends React.Component {
   }
 
   renderCosplayList = (cosplayList) => {
-    return <CosplayList cosplayList={cosplayList} />
+    return <CosplayList cosplayList={cosplayList} updateCosplayList={this.updateCosplayList} />
   }
 
-  addCosplayList = list => {
+  addCosplayList = cosplay => {
+    this.setState({ cosplayLists: [...this.state.cosplayLists, { ...cosplay, id: this.state.cosplayLists.length + 1, elements: [] }] })
+  }
 
+  updateCosplayList = cosplay => {
+    this.setState({
+      cosplayLists: this.state.cosplayLists.map(element => {
+        return element.id === cosplay.id ? cosplay : element;
+      })
+    })
   }
 
   render() {
@@ -31,7 +39,7 @@ export default class App extends React.Component {
         <Modal animationType="slide"
           visible={this.state.addCosplayVisible}
           onRequestClose={() => this.toggleAddCosplayModal()}>
-          <CreateCosplayForm closeForm={() => this.toggleAddCosplayModal()} addCospalyList={this.addCosplayList} />
+          <CreateCosplayForm closeForm={() => this.toggleAddCosplayModal()} addCosplayList={this.addCosplayList} />
         </Modal>
         <View style={{ flexDirection: "row" }}>
           <Text style={styles.title}>
@@ -46,7 +54,7 @@ export default class App extends React.Component {
         </View>
         <View style={{ height: 300, marginVertical: 20 }}>
           <FlatList
-            data={this.state.cosplayList}
+            data={this.state.cosplayLists}
             keyExtractor={item => item.cosplay}
             horizontal={true}
             showsHorizontalScrollIndicator={false}

@@ -22,11 +22,8 @@ export default class CreateCosplayForm extends React.Component {
 
   createCosplay = () => {
     const { cosplay, series, color } = this.state
-    tempData.push({
-      cosplay,
-      color,
-      series
-    })
+    const cosplayList = { cosplay, series, color }
+    this.props.addCosplayList(cosplayList)
     this.setState({
       cosplay: "",
       series: "",
@@ -36,7 +33,7 @@ export default class CreateCosplayForm extends React.Component {
   }
   render() {
     return (
-      <KeyboardAvoidingView >
+      <KeyboardAvoidingView behavior="padding" >
         <TouchableOpacity style={{ postion: "absolute", padding: 10 }} onPress={this.props.closeForm}>
           <AntDesign name="close" size={24} color={palette.green4} />
         </TouchableOpacity>

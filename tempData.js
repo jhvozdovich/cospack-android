@@ -2,6 +2,7 @@
 
 export default tempData = [
   {
+    id: 1,
     cosplay: "Phos",
     series: "HNK",
     startDate: "last year",
@@ -23,6 +24,7 @@ export default tempData = [
     ]
   },
   {
+    id: 2,
     cosplay: "Lilith",
     series: "Borderlands",
     startDate: "last year",
@@ -52,6 +54,7 @@ export default tempData = [
     ]
   },
   {
+    id: 3,
     cosplay: "Mimikyu",
     series: "Pokemon",
     startDate: "last year",
@@ -81,6 +84,7 @@ export default tempData = [
     ]
   },
   {
+    id: 4,
     cosplay: "Little Sister",
     series: "Bioshock",
     startDate: "last year",

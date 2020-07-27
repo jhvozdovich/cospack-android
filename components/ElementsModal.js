@@ -1,46 +1,45 @@
 import React from "react";
-import { StyleSheet, Text, View, SafeAreaView, TouchableOpacity, KeyboardAvoidingView, TextInput } from "react-native";
+import { StyleSheet, Text, View, SafeAreaView, TouchableOpacity, KeyboardAvoidingView, TextInput, Keyboard } from "react-native";
 import { AntDesign, Ionicons } from "@expo/vector-icons";
 
 export default class ElementsModal extends React.Component {
   state = {
-    cosplay: this.props.cosplayList.cosplay,
-    color: this.props.cosplayList.color,
-    elements: this.props.cosplayList.elements
+    newElement: ""
   }
 
-  createCosplay = () => {
-    const { cosplay, series, color } = this.state
-    tempData.push({
-      cosplay,
-      color,
-      series
-    })
-    this.setState({
-      cosplay: "",
-      series: "",
-      color: this.colorOptions[0]
-    })
-    this.props.closeForm();
+  toggleCompletedElement = index => {
+    let cosplayList = this.props.cosplayList
+    cosplayList.elements[index].completed = !cosplayList.elements[index].completed
+    this.props.updateCosplayList(cosplayList);
+  }
+
+  addElement = () => {
+    let cosplayList = this.props.cosplayList
+    cosplayList.elements.push({ name: this.state.newElement, completed: false })
+    this.props.updateCosplayList(cosplayList)
+    this.setState({ newElement: "" })
+    Keyboard.dismiss();
   }
 
   render() {
-    const elementsCount = this.state.elements.length
-    const completeCount = this.state.elements.filter(element => element.completed).length
+    const cosplayList = this.props.cosplayList
+    const elementsCount = cosplayList.elements.length
+    const completeCount = cosplayList.elements.filter(element => element.completed).length
 
     return (
-      <View >
+      // Troubleshoot keyboard avoiding views
+      <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding">
         <TouchableOpacity style={{ postion: "absolute", padding: 10 }} onPress={this.props.closeElementsModal}>
           <AntDesign name="close" size={24} color={palette.green4} />
         </TouchableOpacity>
         <SafeAreaView style={styles.container} style={{ marginTop: 10, marginHorizontal: 30 }} >
-          <Text style={[styles.title, { borderBottomColor: this.state.color }]}>{this.state.cosplay}</Text>
+          <Text style={[styles.title, { borderBottomColor: cosplayList.color }]}>{cosplayList.cosplay}</Text>
           <Text>{completeCount} of {elementsCount}</Text>
           <View style={{ paddingVertical: 32 }}>
             {
-              this.state.elements.map((element) =>
+              cosplayList.elements.map((element, index) =>
                 <View style={styles.listContainer}>
-                  <TouchableOpacity>
+                  <TouchableOpacity onPress={() => this.toggleCompletedElement(index)}>
                     <Ionicons name={element.completed ? "ios-square" : "ios-square-outline"} size={24} color={"grey"} style={{ width: 32 }} />
                   </TouchableOpacity>
                   <Text style={{ fontSize: 20, color: element.completed ? "darkgrey" : "black" }}>{element.name}</Text>
@@ -50,16 +49,19 @@ export default class ElementsModal extends React.Component {
 
 
           {/* Troubleshoot keyboard avoiding */}
-          <KeyboardAvoidingView >
-            <TextInput style={[styles.input, { borderColor: this.state.color }]} />
-            <TouchableOpacity style={{ alignSelf: "center" }} onPress={this.createCosplay} >
-              <Text style={[styles.input, { backgroundColor: this.state.color, fontWeight: "bold", color: "white", paddingTop: 10 }]}>
+          <View>
+            <TextInput
+              style={[styles.input, { borderColor: cosplayList.color }]} onChangeText={text => this.setState({ newElement: text })}
+              value={(this.state.newElement)} />
+            <TouchableOpacity style={{ alignSelf: "center" }}
+              onPress={() => this.addElement()} >
+              <Text style={[styles.input, { backgroundColor: cosplayList.color, fontWeight: "bold", color: "white", paddingTop: 10 }]}>
                 + Add Element
               </Text>
             </TouchableOpacity>
-          </KeyboardAvoidingView>
+          </View>
         </SafeAreaView>
-      </View>
+      </KeyboardAvoidingView>
     )
   }
 }
