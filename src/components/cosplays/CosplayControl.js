@@ -2,17 +2,18 @@ import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, FlatList, Modal, ActivityIndicator } from 'react-native';
 import { AntDesign } from "@expo/vector-icons";
-import palette from '../palette';
-import CosplayList from "./cosplays/CosplayList";
-import CreateCosplayForm from "./cosplays/CreateCosplayForm";
-import Firebase from "../Firebase";
+import palette from "../../palette";
+import CosplayList from "./CosplayList";
+import CreateCosplayForm from "./CreateCosplayForm";
+import Firebase from "../../Firebase";
 
 import { Platform, InteractionManager } from 'react-native';
 
-export default class App extends React.Component {
+export default class CosplayControl extends React.Component {
   state = {
     addCosplayVisible: false,
     cosplayLists: [],
+    elementList: [],
     user: {},
     loading: true
   }
@@ -28,6 +29,7 @@ export default class App extends React.Component {
           this.setState({ loading: false })
         })
       })
+
       this.setState({ user });
     });
   }
@@ -41,26 +43,25 @@ export default class App extends React.Component {
   }
 
   renderCosplayList = (cosplayList) => {
-    return <CosplayList cosplayList={cosplayList} updateCosplayList={this.updateCosplayList} />
+    return <CosplayList cosplayList={cosplayList} elementList={this.state.elementList} updateCosplayInDatabase={this.updateCosplayInDatabase} />
   }
 
-  addCosplayList = cosplay => {
-    firebase.addCosplayList({
+  addCosplayToDatabase = cosplay => {
+    firebase.addCosplayToDatabase({
       cosplay: cosplay.cosplay,
       color: cosplay.color,
       series: cosplay.series,
-      elements: []
     });
   }
 
-  updateCosplayList = cosplay => {
-    firebase.updateCosplayList(cosplay);
+  updateCosplayInDatabase = cosplay => {
+    firebase.updateCosplayInDatabase(cosplay);
   }
 
   render() {
     if (this.state.loading) {
       return (
-        <View>
+        <View style={styles.container}>
           <ActivityIndicator size="large" color={palette.green2} />
         </View>
       )
@@ -71,7 +72,7 @@ export default class App extends React.Component {
         <Modal animationType="slide"
           visible={this.state.addCosplayVisible}
           onRequestClose={() => this.toggleAddCosplayModal()}>
-          <CreateCosplayForm closeForm={() => this.toggleAddCosplayModal()} addCosplayList={this.addCosplayList} />
+          <CreateCosplayForm closeForm={() => this.toggleAddCosplayModal()} addCosplayToDatabase={this.addCosplayToDatabase} />
         </Modal>
         <View>
           <Text>User: {this.state.user.uid}</Text>

@@ -1,31 +1,48 @@
 import React from "react";
 import { StyleSheet, Text, View, SafeAreaView, TouchableOpacity, KeyboardAvoidingView, FlatList, TextInput, Keyboard, Animated } from "react-native";
 import { AntDesign, Ionicons } from "@expo/vector-icons";
-import { Swipeable } from "react-native-gesture-handler";
 
 export default class ElementsModal extends React.Component {
   state = {
-    newElement: ""
+    elementLists: [],
+    newElement: "",
+    loading: true
+  }
+
+  componentDidMount() {
+    firebase = new Firebase((error) => {
+      if (error) {
+        return alert(`Something went wrong D: ${error}`)
+      }
+
+      firebase.getElements(elementLists => {
+        this.setState({ elementLists }, () => {
+          this.setState({ loading: false })
+        })
+      })
+    });
+  }
+
+  componentWillUnmount() {
+    firebase.detach();
   }
 
   toggleCompletedElement = index => {
-    let cosplayList = this.props.cosplayList
-    cosplayList.elements[index].completed = !cosplayList.elements[index].completed
-    this.props.updateCosplayList(cosplayList);
+    elementList[index].elementCompleted = !elementList.elementCompleted
+    this.props.updateElementInDatabase(elementList);
   }
 
   addElement = () => {
-    let cosplayList = this.props.cosplayList
-    cosplayList.elements.push({ name: this.state.newElement, completed: false })
-    this.props.updateCosplayList(cosplayList)
+    this.props.addElementToDatabase(this.state.newElement);
     this.setState({ newElement: "" })
-    Keyboard.dismiss(); ''
+    Keyboard.dismiss();
   }
 
   render() {
     const cosplayList = this.props.cosplayList
-    const elementsCount = cosplayList.elements.length
-    const completeCount = cosplayList.elements.filter(element => element.completed).length
+    const elementList = this.props.elementList
+    const elementsCount = elementList.length
+    const completeCount = elementList.filter(element => element.elementCompleted).length
 
     return (
       // Troubleshoot keyboard avoiding views
@@ -39,14 +56,14 @@ export default class ElementsModal extends React.Component {
           <Text>{completeCount} of {elementsCount}</Text>
           <View style={{ paddingVertical: 32 }}>
             <FlatList
-              data={cosplayList.elements}
+              data={elementList}
               renderItem={({ item, index }) => {
                 return (
                   <View style={styles.listContainer}>
                     <TouchableOpacity onPress={() => this.toggleCompletedElement(index)}>
-                      <Ionicons name={item.completed ? "ios-square" : "ios-square-outline"} size={24} color={"grey"} style={{ width: 32 }} />
+                      <Ionicons name={item.elementCompleted ? "ios-square" : "ios-square-outline"} size={24} color={"grey"} style={{ width: 32 }} />
                     </TouchableOpacity>
-                    <Text style={{ fontSize: 20, color: item.completed ? "darkgrey" : "black" }}>{item.name}</Text>
+                    <Text style={{ fontSize: 20, color: item.elementCompleted ? "darkgrey" : "black" }}>{item.elementName}</Text>
                   </View>
                 )
               }}

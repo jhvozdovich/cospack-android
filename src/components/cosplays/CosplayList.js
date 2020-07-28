@@ -4,22 +4,24 @@ import ElementsModal from "../elements/ElementsModal";
 
 export default class CosplayList extends React.Component {
   state = {
-    showCosplayListVisible: false
+    elementListVisible: false
   }
-  toggleCosplayListModal() {
-    this.setState({ showCosplayListVisible: !this.state.showCosplayListVisible })
+  toggleElementListModal() {
+    this.setState({ elementListVisible: !this.state.elementListVisible })
   }
 
   render() {
     const cosplayList = this.props.cosplayList
-    const percentComplete = Math.floor((cosplayList.elements.filter(element => element.completed).length / (cosplayList.elements.length)) * 100)
+    const elementList = this.props.elementList
+    const percentComplete = Math.floor((elementList.filter(element => element.elementCompleted).length / (elementList.length)) * 100)
     return (
       <View>
-        <Modal animationType="slide" visible={this.state.showCosplayListVisible} onRequestClose={() => this.toggleCosplayListModal()}>
+        <Modal animationType="slide" visible={this.state.elementListVisible} onRequestClose={() => this.toggleCosplayListModal()}>
           <ElementsModal
             cosplayList={cosplayList}
-            closeElementsModal={() => this.toggleCosplayListModal()}
-            updateCosplayList={this.props.updateCosplayList} />
+            elementList={elementList}
+            closeElementsModal={() => this.toggleElementListModal()}
+            updateElementInDatabase={this.props.updateElementInDatabase} />
         </Modal>
         <TouchableOpacity style={[styles.container, { backgroundColor: cosplayList.color }]}
           onPress={() => this.toggleCosplayListModal()}>

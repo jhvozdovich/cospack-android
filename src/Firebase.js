@@ -26,9 +26,9 @@ class Firebase {
 
   getCosplays(callback) {
     // change to order by completion/sort options?
-    let db = this.db.orderBy("cosplay");
+    let dbCosplay = this.dbCosplay.orderBy("cosplay");
 
-    this.unsubscribe = db.onSnapshot(snapshot => {
+    this.unsubscribe = dbCosplay.onSnapshot(snapshot => {
       cosplayLists = []
       snapshot.forEach(doc => {
         cosplayLists.push({ id: doc.id, ...doc.data() })
@@ -38,24 +38,56 @@ class Firebase {
     })
   }
 
-  addCosplayList(cosplayList) {
-    let db = this.db;
-    db.add(cosplayList);
+  addCosplayToDatabase(cosplayList) {
+    let dbCosplay = this.dbCosplay;
+    dbCosplay.add(cosplayList);
   }
 
-  updateCosplayList(cosplayList) {
-    let db = this.db.doc(cosplayList.id).update(cosplayList);
+  updateCosplayInDatabase(cosplayList) {
+    let dbCosplay = this.dbCosplay.doc(cosplayList.id).update(cosplayList);
+  }
+
+  getElements(callback) {
+    let dbElement = this.dbElements.orderBy("elementName");
+
+    this.unsubscribe = dbElement.onSnapshot(snapshot => {
+      elementLists = []
+      snapshot.forEach(doc => {
+        elementLists.push({ id: doc.id, ...doc.data() })
+      })
+
+      callback(elementLists)
+    })
+  }
+
+  addElementToDatabase(elementList) {
+    let dbElement = this.dbElement;
+    dbElement.add(elementList);
+  }
+
+  updateElementInDatabase(elementList) {
+    let dbElement = this.dbElement.doc(elementList.id).update(elementList);
   }
 
   get userId() {
     return firebase.auth().currentUser.uid
   }
 
-  get db() {
+  get dbCosplay() {
     return firebase.firestore()
       .collection("users")
       .doc(this.userId)
       .collection("cosplays");
+  }
+
+  get dbElements() {
+    return firebase.firestore()
+      .collection("users")
+      .doc(this.userId)
+      .collection("cosplays")
+      .doc(this.dbCosplay).forEach(doc => {
+        doc.collection("elements")
+      })
   }
 
   detach() {
