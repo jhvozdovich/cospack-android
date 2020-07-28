@@ -84,7 +84,10 @@ export default class CosplayControl extends React.Component {
               this.renderCosplayList(item)} />
         </View>
 
-        <View style={{ flex: 1, marginTop: 20, paddingTop: 10 }}>
+        <View style={{ flex: 1, marginTop: 20, paddingTop: 10, flexDirection: "row" }}>
+          <TouchableOpacity onPress={this.props.toggleCosplays}>
+            <Text style={styles.button}>Back</Text>
+          </TouchableOpacity>
           <TouchableOpacity onPress={() => this.toggleAddCosplayModal()}>
             <Text style={styles.button}>+ Add Cosplay</Text>
           </TouchableOpacity>

@@ -1,12 +1,15 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import CosplayControl from "./CosplayControl";
-import { Platform, InteractionManager } from 'react-native';
+import Home from "./Home";
+import { Platform, InteractionManager, View } from 'react-native';
 
 export default function App() {
 
   return (
-    <CosplayControl />
+    <View style={{ flex: 1 }}>
+      <StatusBar />
+      <Home />
+    </View>
   )
 }
 
