@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, Text, View, TouchableOpacity, Modal, InteractionManager } from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity, Modal, InteractionManager, ImageBackground } from "react-native";
 import ElementsModal from "./ElementsModal";
 
 export default class CosplayList extends React.Component {
@@ -21,15 +21,17 @@ export default class CosplayList extends React.Component {
             closeElementsModal={() => this.toggleCosplayListModal()}
             updateCosplayDatabase={this.props.updateCosplayDatabase} />
         </Modal>
-        <TouchableOpacity style={[styles.container, { backgroundColor: cosplayList.color, height: "100%" }]}
-          onPress={() => this.toggleCosplayListModal()}>
-          <Text style={styles.cosplays}>{cosplayList.cosplay}</Text>
-          <View>
+        <TouchableOpacity onPress={() => this.toggleCosplayListModal()} >
+          <ImageBackground source={{ uri: cosplayList.image }} style={[styles.container, { backgroundColor: cosplayList.image ? null : cosplayList.color, height: "100%" }]} >
+            <Text style={styles.cosplays}>{cosplayList.cosplay}</Text>
             <View>
-              <Text>Percent Complete: {percentComplete} %</Text>
+              <View>
+                <Text>Percent Complete: {percentComplete} %</Text>
+              </View>
             </View>
-          </View>
-        </TouchableOpacity>
+          </ImageBackground>
+        </TouchableOpacity >
+
       </ View >
     )
   }
@@ -37,12 +39,10 @@ export default class CosplayList extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    paddingVertical: 12,
-    paddingHorizontal: 30,
     borderRadius: 6,
     marginHorizontal: 5,
-    marginTop: 20,
-    alignItems: "center"
+    alignItems: "center",
+    overflow: "hidden"
   },
   cosplays: {
     color: "white",
