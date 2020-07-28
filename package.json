@@ -8,11 +8,13 @@
     "eject": "expo eject"
   },
   "dependencies": {
+    "@expo-google-fonts/press-start-2p": "^0.1.0",
     "@react-navigation/native": "^5.7.1",
     "asyncstorage-down": "^4.2.0",
     "babel-plugin-inline-dotenv": "^1.6.0",
     "babel-plugin-transform-inline-environment-variables": "^0.4.3",
     "expo": "~38.0.8",
+    "expo-font": "~8.2.1",
     "expo-status-bar": "^1.0.2",
     "firebase": "7.9.0",
     "node-libs-react-native": "^1.2.0",

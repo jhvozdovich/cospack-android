@@ -1,0 +1,114 @@
+import { StatusBar } from 'expo-status-bar';
+import React from 'react';
+import { StyleSheet, Text, View, TouchableOpacity, FlatList, Modal, ActivityIndicator } from 'react-native';
+import { AntDesign } from "@expo/vector-icons";
+import palette from '../palette';
+import CosplayList from "./CosplayList";
+import CreateCosplayForm from "./CreateCosplayForm";
+import Firebase from "../Firebase";
+
+export default class CosplayControl extends React.Component {
+  state = {
+    addCosplayVisible: false,
+    allCosplays: [],
+    user: {},
+    loading: true
+  }
+
+  componentDidMount() {
+    firebase = new Firebase((error, user) => {
+      if (error) {
+        return alert(`Something went wrong D: ${error}`)
+      }
+
+      firebase.getCosplays(allCosplays => {
+        this.setState({ allCosplays, user }, () => {
+          this.setState({ loading: false })
+        })
+      })
+      this.setState({ user });
+    });
+  }
+
+
+  componentWillUnmount() {
+    firebase.detach();
+  }
+
+  toggleAddCosplayModal() {
+    this.setState({ addCosplayVisible: !this.state.addCosplayVisible })
+  }
+
+  renderCosplayList = (cosplayList) => {
+    return <CosplayList cosplayList={cosplayList} updateCosplayDatabase={this.updateCosplayDatabase} />
+  }
+
+  addCosplayDatabase = cosplay => {
+    firebase.addCosplayDatabase({
+      cosplay: cosplay.cosplay,
+      color: cosplay.color,
+      series: cosplay.series,
+      elements: []
+    });
+  }
+
+  updateCosplayDatabase = cosplay => {
+    firebase.updateCosplayDatabase(cosplay);
+  }
+
+  render() {
+    if (this.state.loading) {
+      return (
+        <View style={styles.container}>
+          <ActivityIndicator size="large" color={palette.green2} />
+        </View>
+      )
+    }
+
+    return (
+      <View style={styles.container} >
+        <Modal animationType="slide"
+          visible={this.state.addCosplayVisible}
+          onRequestClose={() => this.toggleAddCosplayModal()}>
+          <CreateCosplayForm closeForm={() => this.toggleAddCosplayModal()} addCosplayDatabase={this.addCosplayDatabase} />
+        </Modal>
+
+
+        <View style={{ height: "90%", width: "90%", marginTop: 40, flex: 9 }}>
+          <FlatList
+            data={this.state.allCosplays}
+            keyExtractor={item => item.id.toString()}
+            showsVerticalScrollIndicator={false}
+            renderItem={({ item }) =>
+              this.renderCosplayList(item)} />
+        </View>
+
+        <View style={{ flex: 1, marginTop: 20, paddingTop: 10 }}>
+          <TouchableOpacity onPress={() => this.toggleAddCosplayModal()}>
+            <Text style={styles.button}>+ Add Cosplay</Text>
+          </TouchableOpacity>
+        </View>
+      </View >
+    );
+  }
+}
+
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  title: {
+    color: "grey",
+    fontWeight: "bold",
+    fontSize: 50,
+    margin: 30
+  },
+  button: {
+    color: "grey",
+    fontSize: 20
+  }
+});

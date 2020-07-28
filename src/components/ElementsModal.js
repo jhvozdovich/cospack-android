@@ -2,7 +2,6 @@ import React from "react";
 import { v4 } from "uuid";
 import { StyleSheet, Text, View, SafeAreaView, TouchableOpacity, KeyboardAvoidingView, FlatList, TextInput, Keyboard, Animated } from "react-native";
 import { AntDesign, Ionicons } from "@expo/vector-icons";
-import { Swipeable } from "react-native-gesture-handler";
 
 export default class ElementsModal extends React.Component {
   state = {

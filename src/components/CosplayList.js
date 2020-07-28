@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, Text, View, TouchableOpacity, Modal } from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity, Modal, InteractionManager } from "react-native";
 import ElementsModal from "./ElementsModal";
 
 export default class CosplayList extends React.Component {
@@ -14,14 +14,14 @@ export default class CosplayList extends React.Component {
     const cosplayList = this.props.cosplayList
     const percentComplete = Math.floor((cosplayList.elements.filter(element => element.elementCompleted).length / (cosplayList.elements.length)) * 100)
     return (
-      <View>
+      <View style={{ flex: 1, height: 200, marginBottom: 10 }} >
         <Modal animationType="slide" visible={this.state.showCosplayListVisible} onRequestClose={() => this.toggleCosplayListModal()}>
           <ElementsModal
             cosplayList={cosplayList}
             closeElementsModal={() => this.toggleCosplayListModal()}
             updateCosplayDatabase={this.props.updateCosplayDatabase} />
         </Modal>
-        <TouchableOpacity style={[styles.container, { backgroundColor: cosplayList.color }]}
+        <TouchableOpacity style={[styles.container, { backgroundColor: cosplayList.color, height: "100%" }]}
           onPress={() => this.toggleCosplayListModal()}>
           <Text style={styles.cosplays}>{cosplayList.cosplay}</Text>
           <View>
@@ -30,7 +30,7 @@ export default class CosplayList extends React.Component {
             </View>
           </View>
         </TouchableOpacity>
-      </View >
+      </ View >
     )
   }
 }
