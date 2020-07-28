@@ -2,10 +2,10 @@ import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, FlatList, Modal, ActivityIndicator } from 'react-native';
 import { AntDesign } from "@expo/vector-icons";
-import palette from './palette';
-import CosplayList from "./components/CosplayList";
-import CreateCosplayForm from "./components/CreateCosplayForm";
-import Firebase from "./Firebase";
+import palette from '../palette';
+import CosplayList from "./CosplayList";
+import CreateCosplayForm from "./CreateCosplayForm";
+import Firebase from "../Firebase";
 
 import { Platform, InteractionManager } from 'react-native';
 
@@ -13,7 +13,7 @@ import { Platform, InteractionManager } from 'react-native';
 export default class App extends React.Component {
   state = {
     addCosplayVisible: false,
-    cosplayLists: [],
+    allCosplays: [],
     user: {},
     loading: true
   }
@@ -24,8 +24,8 @@ export default class App extends React.Component {
         return alert(`Something went wrong D: ${error}`)
       }
 
-      firebase.getCosplays(cosplayLists => {
-        this.setState({ cosplayLists, user }, () => {
+      firebase.getCosplays(allCosplays => {
+        this.setState({ allCosplays, user }, () => {
           this.setState({ loading: false })
         })
       })
@@ -42,11 +42,11 @@ export default class App extends React.Component {
   }
 
   renderCosplayList = (cosplayList) => {
-    return <CosplayList cosplayList={cosplayList} updateCosplayList={this.updateCosplayList} />
+    return <CosplayList cosplayList={cosplayList} updateCosplayDatabase={this.updateCosplayDatabase} />
   }
 
-  addCosplayList = cosplay => {
-    firebase.addCosplayList({
+  addCosplayDatabase = cosplay => {
+    firebase.addCosplayDatabase({
       cosplay: cosplay.cosplay,
       color: cosplay.color,
       series: cosplay.series,
@@ -54,8 +54,8 @@ export default class App extends React.Component {
     });
   }
 
-  updateCosplayList = cosplay => {
-    firebase.updateCosplayList(cosplay);
+  updateCosplayDatabase = cosplay => {
+    firebase.updateCosplayDatabase(cosplay);
   }
 
   render() {
@@ -72,7 +72,7 @@ export default class App extends React.Component {
         <Modal animationType="slide"
           visible={this.state.addCosplayVisible}
           onRequestClose={() => this.toggleAddCosplayModal()}>
-          <CreateCosplayForm closeForm={() => this.toggleAddCosplayModal()} addCosplayList={this.addCosplayList} />
+          <CreateCosplayForm closeForm={() => this.toggleAddCosplayModal()} addCosplayDatabase={this.addCosplayDatabase} />
         </Modal>
         <View>
           <Text>User: {this.state.user.uid}</Text>
@@ -90,7 +90,7 @@ export default class App extends React.Component {
         </View>
         <View style={{ height: 300, marginVertical: 20 }}>
           <FlatList
-            data={this.state.cosplayLists}
+            data={this.state.allCosplays}
             keyExtractor={item => item.id.toString()}
             horizontal={true}
             showsHorizontalScrollIndicator={false}

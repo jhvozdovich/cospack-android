@@ -20,7 +20,7 @@ export default class CreateCosplayForm extends React.Component {
   createCosplay = () => {
     const { cosplay, series, color } = this.state
     const cosplayList = { cosplay, series, color }
-    this.props.addCosplayList(cosplayList)
+    this.props.addCosplayDatabase(cosplayList)
     this.setState({
       cosplay: "",
       series: "",

@@ -10,14 +10,14 @@ export default class ElementsModal extends React.Component {
 
   toggleCompletedElement = index => {
     let cosplayList = this.props.cosplayList
-    cosplayList.elements[index].completed = !cosplayList.elements[index].completed
-    this.props.updateCosplayList(cosplayList);
+    cosplayList.elements[index].elementCompleted = !cosplayList.elements[index].elementCompleted
+    this.props.updateCosplayDatabase(cosplayList);
   }
 
   addElement = () => {
     let cosplayList = this.props.cosplayList
-    cosplayList.elements.push({ name: this.state.newElement, completed: false })
-    this.props.updateCosplayList(cosplayList)
+    cosplayList.elements.push({ elementName: this.state.newElement, elementCompleted: false })
+    this.props.updateCosplayDatabase(cosplayList)
     this.setState({ newElement: "" })
     Keyboard.dismiss(); ''
   }
@@ -25,7 +25,7 @@ export default class ElementsModal extends React.Component {
   render() {
     const cosplayList = this.props.cosplayList
     const elementsCount = cosplayList.elements.length
-    const completeCount = cosplayList.elements.filter(element => element.completed).length
+    const completeCount = cosplayList.elements.filter(element => element.elementCompleted).length
 
     return (
       // Troubleshoot keyboard avoiding views
@@ -44,9 +44,9 @@ export default class ElementsModal extends React.Component {
                 return (
                   <View style={styles.listContainer}>
                     <TouchableOpacity onPress={() => this.toggleCompletedElement(index)}>
-                      <Ionicons name={item.completed ? "ios-square" : "ios-square-outline"} size={24} color={"grey"} style={{ width: 32 }} />
+                      <Ionicons name={item.elementCompleted ? "ios-square" : "ios-square-outline"} size={24} color={"grey"} style={{ width: 32 }} />
                     </TouchableOpacity>
-                    <Text style={{ fontSize: 20, color: item.completed ? "darkgrey" : "black" }}>{item.name}</Text>
+                    <Text style={{ fontSize: 20, color: item.elementCompleted ? "darkgrey" : "black" }}>{item.elementName}</Text>
                   </View>
                 )
               }}

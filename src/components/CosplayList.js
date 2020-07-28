@@ -12,14 +12,14 @@ export default class CosplayList extends React.Component {
 
   render() {
     const cosplayList = this.props.cosplayList
-    const percentComplete = Math.floor((cosplayList.elements.filter(element => element.completed).length / (cosplayList.elements.length)) * 100)
+    const percentComplete = Math.floor((cosplayList.elements.filter(element => element.elementCompleted).length / (cosplayList.elements.length)) * 100)
     return (
       <View>
         <Modal animationType="slide" visible={this.state.showCosplayListVisible} onRequestClose={() => this.toggleCosplayListModal()}>
           <ElementsModal
             cosplayList={cosplayList}
             closeElementsModal={() => this.toggleCosplayListModal()}
-            updateCosplayList={this.props.updateCosplayList} />
+            updateCosplayDatabase={this.props.updateCosplayDatabase} />
         </Modal>
         <TouchableOpacity style={[styles.container, { backgroundColor: cosplayList.color }]}
           onPress={() => this.toggleCosplayListModal()}>
