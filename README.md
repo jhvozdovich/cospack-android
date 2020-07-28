@@ -112,7 +112,15 @@ _Have a bug or an issue with this application? [Open a new issue](https://github
 
 ### User Suggestions from Social Media
 
-<img src="./public/UserSurveys/Structure.jpg" width=30% /> <img src="./public/UserSurveys/Categories-1.jpg" width=30% /> <img src="./public/UserSurveys/Categories-2.jpg" width=30% /> <img src="./public/UserSurveys/Calendar.jpg" width=30% />
+<img src="./public/UserSurveys/Structure.jpg" width=30% /> <img src="./public/UserSurveys/Categories-1.jpg" width=30% /> <img src="./public/UserSurveys/Categories-2.jpg" width=30% />  <img src="./public/UserSurveys/Categories-3.jpg" width=30% />  <img src="./public/UserSurveys/Categories-4.jpg" width=30% /> <img src="./public/UserSurveys/Accessibility.jpg" width=30% />  <img src="./public/UserSurveys/Calendar.jpg" width=30% /> <img src="./public/UserSurveys/ReferencePhotos.jpg" width=30% />
+
+Comments:
+* Master list of essentials
+* Link item shared between multiple cosplays
+
+### References
+* [React Native and Firebase](https://www.youtube.com/watch?v=s-kKhO9nnEY&list=PLqtWgQ5BRLPvbmeIYf769yb25g4W8NUZo)
+* [Expo Image Picker](https://docs.expo.io/versions/latest/sdk/imagepicker/)
 
 #### License
 
