@@ -1,11 +1,12 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, FlatList, Modal, ActivityIndicator } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, FlatList, Modal } from 'react-native';
 import { AntDesign } from "@expo/vector-icons";
 import palette from '../palette';
 import CosplayList from "./CosplayList";
 import CreateCosplayForm from "./CreateCosplayForm";
 import Firebase from "../Firebase";
+import Loading from "./Loading";
 
 export default class CosplayControl extends React.Component {
   state = {
@@ -61,9 +62,7 @@ export default class CosplayControl extends React.Component {
   render() {
     if (this.state.loading) {
       return (
-        <View style={styles.container}>
-          <ActivityIndicator size="large" color={palette.green2} />
-        </View>
+        <Loading />
       )
     }
 
