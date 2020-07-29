@@ -38,7 +38,8 @@ export default class ElementsModal extends React.Component {
       return <CosplayDetails cosplayDetailsVisible={this.state.cosplayDetailsVisible}
         toggleCosplayDetailsVisible={this.toggleCosplayDetailsVisible}
         cosplayList={this.props.cosplayList}
-        closeElementsModal={this.props.closeElementsModal} />
+        closeElementsModal={this.props.closeElementsModal}
+        updateCosplayDatabase={this.props.updateCosplayDatabase} />
     }
     else {
       return (
@@ -58,7 +59,7 @@ export default class ElementsModal extends React.Component {
               <View style={{ alignItems: "center", borderBottomWidth: 3, borderBottomColor: cosplayList.color }}>
                 <Text style={[styles.title]}>{cosplayList.cosplay}</Text>
               </View>
-              <Text>{completeCount} of {elementsCount}</Text>
+              <Text style={[styles.font, { textAlign: "right" }]}>{completeCount} of {elementsCount}</Text>
             </View>
 
             <View style={{ flex: 9, paddingHorizontal: 30 }}>
@@ -84,7 +85,7 @@ export default class ElementsModal extends React.Component {
                             paddingBottom: 2
                           }} />
                       </TouchableOpacity>
-                      <Text style={{ fontSize: 20, fontWeight: "bold", color: item.elementCompleted ? "white" : "black" }}>{item.elementName}</Text>
+                      <Text style={[styles.font, { color: item.elementCompleted ? "white" : "black" }]}>{item.elementName}</Text>
                     </View>
                   )
                 }}
@@ -160,5 +161,9 @@ const styles = StyleSheet.create({
   listContainer: {
     marginVertical: 8,
     flexDirection: "row"
+  },
+  font: {
+    fontSize: 20,
+    fontWeight: "bold",
   }
 })

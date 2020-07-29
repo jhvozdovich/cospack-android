@@ -17,9 +17,6 @@ export default function Loading() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>
-        Cos<Text style={{ fontWeight: "normal", color: palette.green3 }}>Pack</Text>
-      </Text>
       <View style={{ width: 200, height: 200 }}>
         <Image source={require("./../../public/DolphinIcon.png")}
           style={{ width: 200, height: 200, marginVertical: 10 }} />
