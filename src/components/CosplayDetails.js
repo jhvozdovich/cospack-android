@@ -28,10 +28,12 @@ export default function CosplayDetails(props) {
           <AntDesign name="delete" size={32} color={props.cosplayList.color} />
         </TouchableOpacity>
       </View>
-      <View style={{ alignItems: "center" }}>
-        <Text style={[styles.title]}>
-          Details Page!
-      </Text>
+      <View style={styles.container} style={{ marginTop: 10, marginHorizontal: 30 }} >
+        <View style={{ alignItems: "center", borderBottomWidth: 3, borderBottomColor: props.cosplayList.color }}>
+          <Text style={[styles.title]}>{props.cosplayList.cosplay}</Text>
+        </View>
+        <Text> Series: {props.cosplayList.series}</Text>
+        <Text> Color: {props.cosplayList.color}</Text>
       </View>
     </View>
 
@@ -40,15 +42,17 @@ export default function CosplayDetails(props) {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    justifyContent: 'center',
+    justifyContent: "center",
+    alignItems: "center"
   },
   title: {
     color: "grey",
+    fontSize: 40,
+    marginBottom: 10,
     fontWeight: "bold",
-    fontSize: 50,
-    margin: 30
+    paddingHorizontal: 5,
+    backgroundColor: "rgba(255, 255, 255, 0.7)",
+    borderRadius: 6
   },
   input: {
     borderWidth: 1,

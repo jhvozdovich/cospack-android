@@ -43,9 +43,9 @@ export default class ElementsModal extends React.Component {
     else {
       return (
         // Troubleshoot keyboard avoiding views
-        <View behavior="padding">
-          <ImageBackground source={{ uri: cosplayList.image }} style={{ height: "100%" }}  >
-            <View style={{ flexDirection: "row", textAlign: "center" }}>
+        <View behavior="padding" style={{ flex: 1 }}>
+          <ImageBackground source={{ uri: cosplayList.image, flex: 1 }} style={{ height: "100%" }}  >
+            <View style={{ flex: 1, flexDirection: "row", textAlign: "center" }}>
               <TouchableOpacity style={{ postion: "absolute", padding: 10 }} onPress={this.props.closeElementsModal}>
                 <AntDesign name="closesquare" size={32} color={cosplayList.color} />
               </TouchableOpacity>
@@ -53,58 +53,65 @@ export default class ElementsModal extends React.Component {
                 <AntDesign name="edit" size={32} color={cosplayList.color} />
               </TouchableOpacity>
             </View>
-            <View style={styles.container} style={{ marginTop: 10, marginHorizontal: 30 }} >
+
+            <View style={styles.container, { flex: 3 }} style={{ marginTop: 10, marginHorizontal: 30 }} >
               <View style={{ alignItems: "center", borderBottomWidth: 3, borderBottomColor: cosplayList.color }}>
                 <Text style={[styles.title]}>{cosplayList.cosplay}</Text>
               </View>
               <Text>{completeCount} of {elementsCount}</Text>
-              <View>
-                <FlatList
-                  data={cosplayList.elements}
-                  renderItem={({ item, index }) => {
-                    return (
-                      <View style={[styles.listContainer,
-                      {
-                        backgroundColor: item.elementCompleted ? "rgba(0,0,0,0.7)" : "rgba(255, 255, 255, 0.7)",
-                        borderRadius: 6
-                      }
-                      ]}>
-                        <TouchableOpacity onPress={() => this.toggleCompletedElement(index)}>
-                          <Ionicons
-                            name={item.elementCompleted ? "ios-checkbox" : "ios-square"}
-                            size={30}
-                            color={item.elementCompleted ? cosplayList.color : "rgba(0,0,0, 0.3)"}
-                            style={{
-                              paddingLeft: 10,
-                              paddingRight: item.elementCompleted ? 10 : 13,
-                              paddingBottom: 2
-                            }} />
-                        </TouchableOpacity>
-                        <Text style={{ fontSize: 20, fontWeight: "bold", color: item.elementCompleted ? "white" : "black" }}>{item.elementName}</Text>
-                      </View>
-                    )
-                  }}
-                />
-              </View>
             </View>
-            <View style={styles.container} style={{ marginTop: 10, marginHorizontal: 30 }} >
-              <View style={{ flexDirection: "row" }}>
-                <TextInput
-                  style={[styles.input, { borderColor: cosplayList.color, backgroundColor: "rgba(255, 255, 255, 0.7)" }]}
-                  onChangeText={text => this.setState({ newElement: text })}
-                  value={(this.state.newElement)} />
-                <TouchableOpacity style={{ alignSelf: "center" }}
-                  onPress={() => this.addElement()} >
-                  <Text style={[styles.box, {
-                    backgroundColor: cosplayList.color,
-                    fontWeight: "bold", color: "white",
-                  }]}>
-                    +
+
+            <View style={{ flex: 9, paddingHorizontal: 30 }}>
+              <FlatList
+                data={cosplayList.elements}
+                showsVerticalScrollIndicator={false}
+                renderItem={({ item, index }) => {
+                  return (
+                    <View style={[styles.listContainer,
+                    {
+                      backgroundColor: item.elementCompleted ? "rgba(0,0,0,0.7)" : "rgba(255, 255, 255, 0.7)",
+                      borderRadius: 6
+                    }
+                    ]}>
+                      <TouchableOpacity onPress={() => this.toggleCompletedElement(index)}>
+                        <Ionicons
+                          name={item.elementCompleted ? "ios-checkbox" : "ios-square"}
+                          size={30}
+                          color={item.elementCompleted ? cosplayList.color : "rgba(0,0,0, 0.3)"}
+                          style={{
+                            paddingLeft: 10,
+                            paddingRight: item.elementCompleted ? 10 : 13,
+                            paddingBottom: 2
+                          }} />
+                      </TouchableOpacity>
+                      <Text style={{ fontSize: 20, fontWeight: "bold", color: item.elementCompleted ? "white" : "black" }}>{item.elementName}</Text>
+                    </View>
+                  )
+                }}
+              />
+            </View>
+
+
+            <KeyboardAvoidingView behavior="height" style={{ flex: 2 }}>
+              <View style={styles.container} style={{ marginTop: 10, marginHorizontal: 30 }} >
+                <View style={{ flexDirection: "row" }}>
+                  <TextInput
+                    style={[styles.input, { borderColor: cosplayList.color, backgroundColor: "rgba(255, 255, 255, 0.7)" }]}
+                    onChangeText={text => this.setState({ newElement: text })}
+                    value={(this.state.newElement)} />
+                  <TouchableOpacity style={{ alignSelf: "center" }}
+                    onPress={() => this.addElement()} >
+                    <Text style={[styles.box, {
+                      backgroundColor: cosplayList.color,
+                      fontWeight: "bold", color: "white",
+                    }]}>
+                      +
                   </Text>
-                </TouchableOpacity>
+                  </TouchableOpacity>
+                </View>
               </View>
-            </View>
-          </ImageBackground>
+            </KeyboardAvoidingView>
+          </ImageBackground >
         </View >
       )
     }
