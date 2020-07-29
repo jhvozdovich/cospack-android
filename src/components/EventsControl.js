@@ -6,7 +6,7 @@ export default function EventsControl(props) {
   return (
     <View style={styles.container}>
       <View style={{ alignItems: "center" }}>
-        <Text style={[styles.title, { fontSize: 40 }]}>No events yet!</Text>
+        <Text style={[styles.title, { fontSize: 40 }]}>Coming Soon!</Text>
       </View>
       <TouchableOpacity onPress={props.toggleEvents}>
         <Text style={[styles.input, styles.button, { backgroundColor: palette.green2 }]}>

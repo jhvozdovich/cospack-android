@@ -16,10 +16,12 @@ export default class ElementsModal extends React.Component {
 
   addElement = () => {
     let cosplayList = this.props.cosplayList
-    cosplayList.elements.push({ elementName: this.state.newElement, elementCompleted: false, id: v4(), cosplayId: this.props.cosplayList.id })
-    this.props.updateCosplayDatabase(cosplayList)
-    this.setState({ newElement: "" })
-    Keyboard.dismiss(); ''
+    if (this.state.newElement.length > 0) {
+      cosplayList.elements.push({ elementName: this.state.newElement, elementCompleted: false, id: v4(), cosplayId: this.props.cosplayList.id })
+      this.props.updateCosplayDatabase(cosplayList)
+      this.setState({ newElement: "" })
+      Keyboard.dismiss(); ''
+    }
   }
 
   render() {
@@ -29,66 +31,86 @@ export default class ElementsModal extends React.Component {
 
     return (
       // Troubleshoot keyboard avoiding views
-      <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding">
+      <View behavior="padding">
         <ImageBackground source={{ uri: cosplayList.image }} style={{ height: "100%" }}  >
-          <TouchableOpacity style={{ postion: "absolute", padding: 10 }} onPress={this.props.closeElementsModal}>
-            <AntDesign name="close" size={24} color={palette.green4} />
-          </TouchableOpacity>
-          <SafeAreaView style={styles.container} style={{ marginTop: 10, marginHorizontal: 30 }} >
-            <Text style={[styles.title, { borderBottomColor: cosplayList.color }]}>{cosplayList.cosplay}</Text>
+          <View style={{ flexDirection: "row", textAlign: "center" }}>
+            <TouchableOpacity style={{ postion: "absolute", padding: 10 }} onPress={this.props.closeElementsModal}>
+              <AntDesign name="closesquare" size={32} color={cosplayList.color} />
+            </TouchableOpacity>
+            <TouchableOpacity style={{ postion: "absolute", left: 250, padding: 10 }} onPress={this.props.closeElementsModal}>
+              <AntDesign name="edit" size={32} color={cosplayList.color} />
+            </TouchableOpacity>
+          </View>
+          <View style={styles.container} style={{ marginTop: 10, marginHorizontal: 30 }} >
+            <View style={{ alignItems: "center", borderBottomWidth: 3, borderBottomColor: cosplayList.color }}>
+              <Text style={[styles.title]}>{cosplayList.cosplay}</Text>
+            </View>
             <Text>{completeCount} of {elementsCount}</Text>
-            <View style={{ paddingVertical: 32 }}>
+            <View>
               <FlatList
                 data={cosplayList.elements}
                 renderItem={({ item, index }) => {
                   return (
-                    <View style={styles.listContainer}>
+                    <View style={[styles.listContainer,
+                    {
+                      backgroundColor: item.elementCompleted ? "rgba(0,0,0,0.7)" : "rgba(255, 255, 255, 0.7)",
+                      borderRadius: 6
+                    }
+                    ]}>
                       <TouchableOpacity onPress={() => this.toggleCompletedElement(index)}>
-                        <Ionicons name={item.elementCompleted ? "ios-square" : "ios-square-outline"} size={24} color={"grey"} style={{ width: 32 }} />
+                        <Ionicons
+                          name={item.elementCompleted ? "ios-checkbox" : "ios-square"}
+                          size={30}
+                          color={item.elementCompleted ? cosplayList.color : "rgba(0,0,0, 0.3)"}
+                          style={{
+                            paddingLeft: 10,
+                            paddingRight: item.elementCompleted ? 10 : 13,
+                            paddingBottom: 2
+                          }} />
                       </TouchableOpacity>
-                      <Text style={{ fontSize: 20, color: item.elementCompleted ? "darkgrey" : "black" }}>{item.elementName}</Text>
+                      <Text style={{ fontSize: 20, fontWeight: "bold", color: item.elementCompleted ? "white" : "black" }}>{item.elementName}</Text>
                     </View>
                   )
                 }}
               />
             </View>
-          </SafeAreaView>
-
-
-          {/* Troubleshoot keyboard avoiding */}
-          <SafeAreaView style={styles.container} style={{ marginTop: 10, marginHorizontal: 30 }} >
-            <View>
+          </View>
+          <View style={styles.container} style={{ marginTop: 10, marginHorizontal: 30 }} >
+            <View style={{ flexDirection: "row" }}>
               <TextInput
-                style={[styles.input, { borderColor: cosplayList.color }]} onChangeText={text => this.setState({ newElement: text })}
+                style={[styles.input, { borderColor: cosplayList.color, backgroundColor: "rgba(255, 255, 255, 0.7)" }]}
+                onChangeText={text => this.setState({ newElement: text })}
                 value={(this.state.newElement)} />
               <TouchableOpacity style={{ alignSelf: "center" }}
                 onPress={() => this.addElement()} >
-                <Text style={[styles.input, { backgroundColor: cosplayList.color, fontWeight: "bold", color: "white", paddingTop: 10 }]}>
-                  + Add Element
-              </Text>
+                <Text style={[styles.box, {
+                  backgroundColor: cosplayList.color,
+                  fontWeight: "bold", color: "white",
+                }]}>
+                  +
+                  </Text>
               </TouchableOpacity>
             </View>
-          </SafeAreaView>
+          </View>
         </ImageBackground>
-      </KeyboardAvoidingView >
+      </View >
     )
   }
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     justifyContent: "center",
-    alignItems: "center",
-    marginTop: 20
+    alignItems: "center"
   },
   title: {
     color: "grey",
     fontSize: 40,
-    borderBottomWidth: 3,
-    paddingVertical: 5,
-    paddingHorizontal: "20%",
-    marginBottom: 15
+    marginBottom: 10,
+    fontWeight: "bold",
+    paddingHorizontal: 5,
+    backgroundColor: "rgba(255, 255, 255, 0.7)",
+    borderRadius: 6
   },
   input: {
     borderWidth: 1,
@@ -96,14 +118,27 @@ const styles = StyleSheet.create({
     borderRadius: 6,
     height: 50,
     marginTop: 20,
-    marginHorizontal: 30,
+    marginHorizontal: 0,
     textAlign: "center",
     fontSize: 18,
-    width: 300,
+    width: 240,
     alignSelf: "center",
+    fontWeight: "bold"
+  },
+  box: {
+    borderWidth: 1,
+    borderColor: palette.green1,
+    borderRadius: 6,
+    height: 50,
+    marginTop: 20,
+    marginHorizontal: 10,
+    textAlign: "center",
+    alignSelf: "center",
+    width: 50,
+    fontSize: 35
   },
   listContainer: {
-    paddingVertical: 8,
+    marginVertical: 8,
     flexDirection: "row"
   }
 })

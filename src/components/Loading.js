@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, ActivityIndicator } from "react-native";
+import { AntDesign, Ionicons } from "@expo/vector-icons";
 
 let randomTipIndex = Math.floor(Math.random() * 4);
 const randomTipArray = ["Take a sip of water!", "Do a minute of quick exercise!", "Take a snack break!",
