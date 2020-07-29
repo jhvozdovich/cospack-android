@@ -12,7 +12,16 @@ export default class CosplayList extends React.Component {
 
   render() {
     const cosplayList = this.props.cosplayList
-    const percentComplete = Math.floor((cosplayList.elements.filter(element => element.elementCompleted).length / (cosplayList.elements.length)) * 100)
+    const calculateComplete = () => {
+      const result = Math.floor((cosplayList.elements.filter(element => element.elementCompleted).length / (cosplayList.elements.length)) * 110);
+      if (isNaN(cosplayList.elements.length) || isNaN(result)) {
+        return 0
+      } else {
+        return result
+      }
+    }
+    const widthPercentageComplete = calculateComplete();
+
     return (
       <View style={{ flex: 1, height: 200, marginBottom: 10 }} >
         <Modal animationType="slide" visible={this.state.showCosplayListVisible} onRequestClose={() => this.toggleCosplayListModal()}>
@@ -21,15 +30,16 @@ export default class CosplayList extends React.Component {
             closeElementsModal={() => this.toggleCosplayListModal()}
             updateCosplayDatabase={this.props.updateCosplayDatabase} />
         </Modal>
+
         <TouchableOpacity onPress={() => this.toggleCosplayListModal()} >
-          <ImageBackground source={{ uri: cosplayList.image }} style={[styles.container, { backgroundColor: cosplayList.image ? null : cosplayList.color, height: "100%" }]} >
-            <Text style={styles.cosplays}>{cosplayList.cosplay}</Text>
-            <View>
-              <View>
-                <Text>Percent Complete: {percentComplete} %</Text>
-              </View>
-            </View>
+
+          <ImageBackground source={{ uri: cosplayList.image }} style={[styles.container, { backgroundColor: cosplayList.image ? null : cosplayList.color, height: "100%", alignItems: "center" }]} >
+            <View style={[styles.overlay, { width: "110%", left: `${widthPercentageComplete}%` }]} />
+            <Text adjustsFontSizeToFit flexWrap="wrap"
+              style={[styles.cosplays,
+              { paddingTop: cosplayList.cosplay.length > 6 ? 50 : 10 }]}>{cosplayList.cosplay}</Text>
           </ImageBackground>
+
         </TouchableOpacity >
 
       </ View >
@@ -40,12 +50,20 @@ export default class CosplayList extends React.Component {
 const styles = StyleSheet.create({
   container: {
     borderRadius: 6,
+    paddingHorizontal: 10,
     marginHorizontal: 5,
     alignItems: "center",
     overflow: "hidden"
   },
   cosplays: {
     color: "white",
-    fontWeight: "bold"
+    fontWeight: "bold",
+    fontSize: 500
+  },
+  overlay: {
+    position: 'absolute',
+    top: 0,
+    bottom: 0,
+    backgroundColor: 'rgba(0,0,0,0.5)'
   }
 })
