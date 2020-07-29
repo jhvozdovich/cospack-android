@@ -7,13 +7,14 @@ const randomTipArray = ["Take a sip of water!", "Do a minute of quick exercise!"
   "Do you have to go potty!? Go now!!!", "Hydrate or diedrate!", "Wash your face and refresh!",
   "Check your posture <3", "Comparison is the thief of joy <3", "Make time to sleep tonight!",
   "Be kind to yourself!", "Phone a friend and work together!", "Breathe in, breathe out <3",
-  "Remember sunscreen!"]
+  "Remember sunscreen!", "Treat yourself!", "You are not just your productivity!",
+  "Your perception becomes your reality!"]
 
 
 
 export default function Loading() {
 
-  randomTipIndex = Math.floor(Math.random() * 13);
+  randomTipIndex = Math.floor(Math.random() * 16);
 
   return (
     <View style={styles.container}>

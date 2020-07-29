@@ -107,6 +107,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  title: {
+    color: "grey",
+    fontWeight: "bold",
+    fontSize: 50,
+    margin: 30
+  },
   button: {
     color: "grey",
     fontSize: 20
