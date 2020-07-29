@@ -121,6 +121,7 @@ Comments:
 ### References
 * [React Native and Firebase](https://www.youtube.com/watch?v=s-kKhO9nnEY&list=PLqtWgQ5BRLPvbmeIYf769yb25g4W8NUZo)
 * [Expo Image Picker](https://docs.expo.io/versions/latest/sdk/imagepicker/)
+* [Temp Porpoise Logo](https://www.vexels.com/png-svg/preview/153196/jumping-dolphin-colored-stroke-icon)
 
 #### License
 
