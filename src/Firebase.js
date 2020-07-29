@@ -47,6 +47,10 @@ class Firebase {
     let db = this.db.doc(cosplayList.id).update(cosplayList);
   }
 
+  deleteCosplayFromDatabase(cosplayList) {
+    let db = this.db.doc(cosplayList.id).delete();
+  }
+
   get userId() {
     return firebase.auth().currentUser.uid
   }
