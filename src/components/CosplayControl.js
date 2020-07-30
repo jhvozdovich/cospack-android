@@ -51,6 +51,7 @@ export default class CosplayControl extends React.Component {
       series: cosplay.series,
       elements: [],
       image: cosplay.image,
+      imagePrev: cosplay.imagePrev,
       imageUri: cosplay.imageUri
     });
   }

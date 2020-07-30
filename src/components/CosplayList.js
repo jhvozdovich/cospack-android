@@ -33,7 +33,7 @@ export default class CosplayList extends React.Component {
 
         <TouchableOpacity onPress={() => this.toggleCosplayListModal()} >
 
-          <ImageBackground source={{ uri: cosplayList.image }} style={[styles.container, { backgroundColor: cosplayList.image ? null : cosplayList.color, height: "100%", alignItems: "center" }]} >
+          <ImageBackground source={{ uri: cosplayList.imagePrev ? cosplayList.imagePrev : cosplayList.image }} style={[styles.container, { backgroundColor: cosplayList.image ? null : cosplayList.color, height: "100%", alignItems: "center" }]} >
             <View style={[styles.overlay, { width: "110%", left: `${widthPercentageComplete}%` }]} />
             <Text adjustsFontSizeToFit flexWrap="wrap"
               style={[styles.cosplays,

@@ -6,6 +6,8 @@ export default class CosplayDetails extends React.Component {
   state = {
     newCosplay: this.props.cosplayList.cosplay,
     newSeries: this.props.cosplayList.series,
+    newImage: this.props.cosplayList.image,
+    newImagePrev: this.props.cosplayList.imagePrev,
     cosplayDetailsVisible: false,
   }
 
@@ -27,6 +29,8 @@ export default class CosplayDetails extends React.Component {
     let cosplayList = this.props.cosplayList;
     cosplayList.cosplay = this.state.newCosplay;
     cosplayList.series = this.state.newSeries;
+    cosplayList.image = this.state.newImage;
+    cosplayList.imagePrev = this.state.newImagePrev;
     this.props.updateCosplayDatabase(cosplayList)
   }
 
