@@ -53,8 +53,7 @@ npm start
 * Updating the cosplay name in a way that changes the alphabetical sort reloads and returns the user to the cosplay list from the edit page.
 * Explore swipeable with Android - current reported bug preventing use with react-native-gesture-handler
 
-<img src="./public/DemoVideos/Create.gif" width=30% />
-<img src="./public/DemoVideos/AddElement.gif" width=30% /> <img src="./public/DemoVideos/EditCosplay.gif" width=30% />
+<img src="./public/DemoVideos/Create.gif" width=25% /> <img src="./public/DemoVideos/AddElement.gif" width=25% /> <img src="./public/DemoVideos/EditCosplay.gif" width=25% />
 
 ### Support and Contact Information
 
