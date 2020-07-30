@@ -13,8 +13,9 @@ Cosplayers have a lot to keep track of! Between costumes, props, makeup, repair 
 
 _This mobile application serves as an interactive, visual checklist application to help cosplayers pack for conventions and photoshoots, preventing forgotten items.  Full CRUD functionality is achieved with React Native and Firebase. A one to many relationship is set up between cosplays and their components in a NoSQL database._
 
- <img src="./public/Screenshots/CosplayList.jpg" width=30% /> 
-
+<img src="./public/DemoVideos/HomeNav.gif" width=30% />
+<img src="./public/DemoVideos/ListNav.gif" width=30% />
+<img src="./public/DemoVideos/ElementNav.gif" width=30% />
 ### Instructions for use:
 These instructions and the code have been tested on an android device. Feel free to leave a bug report or email me if you have any trouble!
 
@@ -133,6 +134,11 @@ _Have a bug or an issue with this application? [Open a new issue](https://github
 Comments:
 * Master list of essentials
 * Link item shared between multiple cosplays
+* Suggestions for self care loading tips
+
+<img src="./public/DemoVideos/Loading1.gif" width=30% />
+<img src="./public/DemoVideos/Loading2.gif" width=30% />
+<img src="./public/DemoVideos/Loading3.gif" width=30% />
 
 ### References
 * [Setting up Expo CLI with React Native](https://reactnative.dev/docs/environment-setup)
@@ -140,7 +146,7 @@ Comments:
 * [Expo Image Picker](https://docs.expo.io/versions/latest/sdk/imagepicker/)
 * [Temp Porpoise Logo](https://www.vexels.com/png-svg/preview/153196/jumping-dolphin-colored-stroke-icon)
 * [Temp Luggage Logo](https://www.vexels.com/png-svg/preview/153302/rolling-luggage-colored-stroke-icon)
-* Photographers: Catwoman (@shashinkacosphoto), Daenerys (@ministerofwaffles), Ember (@taranicolephotos), Kirari (@marcovercash), Ladybug and Lilith (@caylawithacamera), Mimikyu (@ploppythespaceship), Wendy(@xxjustaghost)
+* Photographers: Catwoman (@shashinkacosphoto), Daenerys (@ministerofwaffles), Ember (@taranicolephotos), Kirari (@marcovercash), Ladybug and Lilith (@caylawithacamera), Mimikyu (@ploppythespaceship), Wendy (@xxjustaghost)
 
 #### License
 
