@@ -48,6 +48,8 @@ npm start
 ### Known Bugs
 
 * Attempting to edit or add elements to the last element in the sorted list of cosplays, or most recent cosplay if unsorted, exits back to the main cosplay list from both the edit and add elements input pages.
+* Updating the cosplay name in a way that changes the alphabetical sort reloads and returns the user to the cosplay list from the edit page.
+* Explore swipeable with Android - current reported bug preventing use with react-native-gesture-handler
 
 ### Support and Contact Information
 

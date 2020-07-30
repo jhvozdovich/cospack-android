@@ -3,6 +3,7 @@ import { v4 } from "uuid";
 import { StyleSheet, Text, View, SafeAreaView, TouchableOpacity, KeyboardAvoidingView, FlatList, TextInput, Keyboard, Image, ImageBackground } from "react-native";
 import { AntDesign, Ionicons } from "@expo/vector-icons";
 import CosplayDetails from "./CosplayDetails";
+import { Swipeable } from "react-native-gesture-handler"
 
 export default class ElementsModal extends React.Component {
   state = {
@@ -27,6 +28,12 @@ export default class ElementsModal extends React.Component {
 
   toggleCosplayDetailsVisible = () => {
     this.setState({ cosplayDetailsVisible: !this.state.cosplayDetailsVisible })
+  }
+
+  removeElement = (index) => {
+    let cosplayList = this.props.cosplayList
+    cosplayList.elements.splice(index, 1)
+    this.props.updateCosplayDatabase(cosplayList)
   }
 
   render() {
@@ -71,21 +78,37 @@ export default class ElementsModal extends React.Component {
                     <View style={[styles.listContainer,
                     {
                       backgroundColor: item.elementCompleted ? "rgba(0,0,0,0.7)" : "rgba(255, 255, 255, 0.7)",
-                      borderRadius: 6
+                      borderRadius: 6,
+                      flex: 1
                     }
                     ]}>
-                      <TouchableOpacity onPress={() => this.toggleCompletedElement(index)}>
-                        <Ionicons
-                          name={item.elementCompleted ? "ios-checkbox" : "ios-square"}
-                          size={30}
-                          color={item.elementCompleted ? cosplayList.color : "rgba(0,0,0, 0.3)"}
-                          style={{
-                            paddingLeft: 10,
-                            paddingRight: item.elementCompleted ? 10 : 13,
-                            paddingBottom: 2
-                          }} />
-                      </TouchableOpacity>
-                      <Text style={[styles.font, { color: item.elementCompleted ? "white" : "black" }]}>{item.elementName}</Text>
+                      <View style={{ flex: 6, flexDirection: "row" }}>
+                        <TouchableOpacity onPress={() => this.toggleCompletedElement(index)}>
+                          <Ionicons
+                            name={item.elementCompleted ? "ios-checkbox" : "ios-square"}
+                            size={30}
+                            color={item.elementCompleted ? cosplayList.color : "rgba(0,0,0, 0.3)"}
+                            style={{
+                              paddingLeft: 10,
+                              paddingRight: item.elementCompleted ? 10 : 13,
+                              paddingBottom: 2
+                            }} />
+                        </TouchableOpacity>
+                        <Text style={[styles.font, { color: item.elementCompleted ? "white" : "black" }]}>{item.elementName}</Text>
+                      </View>
+                      <View style={{ flex: 1 }}>
+                        <TouchableOpacity onPress={() => this.removeElement(index)}>
+                          <Ionicons
+                            name="ios-close"
+                            paddingHorizontal={10}
+                            size={30}
+                            color={item.elementCompleted ? "rgba(255,255,255, 0.3)" : "rgba(0,0,0, 0.3)"}
+                            style={{
+                              marginLeft: "auto",
+                              marginRight: "auto"
+                            }} />
+                        </TouchableOpacity>
+                      </View>
                     </View>
                   )
                 }}
@@ -125,13 +148,13 @@ const styles = StyleSheet.create({
     alignItems: "center"
   },
   title: {
-    color: "grey",
+    color: "rgba(26, 23, 28, 1)",
     fontSize: 40,
     marginBottom: 10,
     fontWeight: "bold",
     paddingHorizontal: 5,
     backgroundColor: "rgba(255, 255, 255, 0.7)",
-    borderRadius: 6
+    borderRadius: 6,
   },
   input: {
     borderWidth: 1,

@@ -37,7 +37,9 @@ export default class CosplayList extends React.Component {
             <View style={[styles.overlay, { width: "110%", left: `${widthPercentageComplete}%` }]} />
             <Text adjustsFontSizeToFit flexWrap="wrap"
               style={[styles.cosplays,
-              { paddingTop: cosplayList.cosplay.length > 6 ? 50 : 10 }]}>{cosplayList.cosplay}</Text>
+              { paddingTop: cosplayList.cosplay.length > 6 ? 50 : 10 }]}>
+              {cosplayList.cosplay}
+            </Text>
           </ImageBackground>
 
         </TouchableOpacity >
@@ -58,7 +60,10 @@ const styles = StyleSheet.create({
   cosplays: {
     color: "white",
     fontWeight: "bold",
-    fontSize: 500
+    fontSize: 500,
+    textShadowOffset: { width: 2, height: 2 },
+    textShadowRadius: 10,
+    textShadowColor: '#000',
   },
   overlay: {
     position: 'absolute',
