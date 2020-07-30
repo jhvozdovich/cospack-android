@@ -5,13 +5,15 @@
 #### Author: **Jessica Hvozdovich**
 #### July 30, 2020
 
-<!-- ![Screenshot of Webpage](./public/.png) -->
+ <img src="./public/Screenshots/NewCosplay.jpg" width=30% /> <img src="./public/Screenshots/Home.jpg" width=30% /> <img src="./public/Screenshots/EditCosplay.jpg" width=30% />
 
 ### Description
 
 Cosplayers have a lot to keep track of! Between costumes, props, makeup, repair supplies, toiletries, and miscellaneous gear, so many essentials can be forgotten after a whirlwind of con prep. CosPack is an app that can be used as a cosplay to do list or packing list. Upload a photo and label elements of your costume for a visual checklist go to through before you head out the door for your next big event. Mark items that need repair or need completion, track your progress, and feel confident that you haven’t forgotten that wig you spent two weeks styling, the magic earrings central to your character’s powers, or that expensive as heck 8ft long sword you commissioned.
 
 _This mobile application serves as an interactive, visual checklist application to help cosplayers pack for conventions and photoshoots, preventing forgotten items.  Full CRUD functionality is achieved with React Native and Firebase. A one to many relationship is set up between cosplays and their components in a NoSQL database._
+
+ <img src="./public/Screenshots/CosplayList.jpg" width=30% /> 
 
 ### Instructions for use:
 These instructions and the code have been tested on an android device. Feel free to leave a bug report or email me if you have any trouble!
@@ -44,6 +46,7 @@ npm start
 ```
 9. Open the Expo client app, select Scan QR Code, and scan the QR code in the terminal or the local host webpage to run the app on your device. 
 
+<img src="./public/Screenshots/ElementListShort.jpg" width=30% /> <img src="./public/Screenshots/ElementListLong.jpg" width=30% /> 
 
 ### Known Bugs
 
