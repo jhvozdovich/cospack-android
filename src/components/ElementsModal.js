@@ -66,7 +66,7 @@ export default class ElementsModal extends React.Component {
               <View style={{ alignItems: "center", borderBottomWidth: 3, borderBottomColor: cosplayList.color }}>
                 <Text style={[styles.title]}>{cosplayList.cosplay}</Text>
               </View>
-              <Text style={[styles.font, { textAlign: "right" }]}>{completeCount} of {elementsCount}</Text>
+              <Text style={[styles.counter, { textAlign: "right" }]}>{completeCount} of {elementsCount}</Text>
             </View>
 
             <View style={{ flex: 9, paddingHorizontal: 30 }}>
@@ -188,5 +188,14 @@ const styles = StyleSheet.create({
   font: {
     fontSize: 20,
     fontWeight: "bold",
+  },
+  counter: {
+    fontSize: 20,
+    fontWeight: "bold",
+    backgroundColor: "rgba(255, 255, 255, 0.7)",
+    marginLeft: 210,
+    marginTop: 5,
+    borderRadius: 6,
+    paddingHorizontal: 10
   }
 })
