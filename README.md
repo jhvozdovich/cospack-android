@@ -13,9 +13,7 @@ Cosplayers have a lot to keep track of! Between costumes, props, makeup, repair 
 
 _This mobile application serves as an interactive, visual checklist application to help cosplayers pack for conventions and photoshoots, preventing forgotten items.  Full CRUD functionality is achieved with React Native and Firebase. A one to many relationship is set up between cosplays and their components in a NoSQL database._
 
-<img src="./public/DemoVideos/HomeNav.gif" width=30% />
-<img src="./public/DemoVideos/ListNav.gif" width=30% />
-<img src="./public/DemoVideos/ElementNav.gif" width=30% />
+<img src="./public/DemoVideos/HomeNav.gif" width=30% /> <img src="./public/DemoVideos/ListNav.gif" width=30% /> <img src="./public/DemoVideos/ElementNav.gif" width=30% />
 ### Instructions for use:
 These instructions and the code have been tested on an android device. Feel free to leave a bug report or email me if you have any trouble!
 
@@ -47,13 +45,16 @@ npm start
 ```
 9. Open the Expo client app, select Scan QR Code, and scan the QR code in the terminal or the local host webpage to run the app on your device. 
 
-<img src="./public/Screenshots/ElementListShort.jpg" width=30% /> <img src="./public/Screenshots/ElementListLong.jpg" width=30% /> 
+<img src="./public/Screenshots/ElementListShort.jpg" width=30% /> <img src="./public/DemoVideos/LongList.gif" width=35% /> <img src="./public/Screenshots/ElementListLong.jpg" width=30% /> 
 
 ### Known Bugs
 
 * Attempting to edit or add elements to the last element in the sorted list of cosplays, or most recent cosplay if unsorted, exits back to the main cosplay list from both the edit and add elements input pages.
 * Updating the cosplay name in a way that changes the alphabetical sort reloads and returns the user to the cosplay list from the edit page.
 * Explore swipeable with Android - current reported bug preventing use with react-native-gesture-handler
+
+<img src="./public/DemoVideos/Create.gif" width=30% />
+<img src="./public/DemoVideos/AddElement.gif" width=30% /> <img src="./public/DemoVideos/EditCosplay.gif" width=30% />
 
 ### Support and Contact Information
 
@@ -94,7 +95,7 @@ _Have a bug or an issue with this application? [Open a new issue](https://github
 | **User can only see their own cosplay data** | User Input: "Login" | Output: “User Projects only in display and details, link with user id?" |
 
 ### Wireframes
-<img src="./public/Wireframes/CosPackHome.png" width=30% /> <img src="./public/Wireframes/CosPackLoading.png" width=30% />  <img src="./public/Wireframes/CosPackCosplayList.png" width=30% /> 
+<img src="./public/Wireframes/CosPackHome.png" width=29% /> <img src="./public/Wireframes/CosPackLoading.png" width=29% />  <img src="./public/Wireframes/CosPackCosplayList.png" width=30% /> 
 <img src="./public/Wireframes/CosPackChecklist.png" width=30% /> <img src="./public/Wireframes/CosPackCosplayDetails.png" width=30% /> <img src="./public/Wireframes/CosPackElementDetails.png" width=30% /> 
 
 ### Stretch Goals
@@ -136,9 +137,7 @@ Comments:
 * Link item shared between multiple cosplays
 * Suggestions for self care loading tips
 
-<img src="./public/DemoVideos/Loading1.gif" width=30% />
-<img src="./public/DemoVideos/Loading2.gif" width=30% />
-<img src="./public/DemoVideos/Loading3.gif" width=30% />
+<img src="./public/DemoVideos/Loading1.gif" width=30% /> <img src="./public/DemoVideos/Loading2.gif" width=30% /> <img src="./public/DemoVideos/Loading3.gif" width=30% />
 
 ### References
 * [Setting up Expo CLI with React Native](https://reactnative.dev/docs/environment-setup)
