@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
 import palette from "../palette";
 import CosplayControl from './CosplayControl';
 import EventsControl from "./EventsControl";
@@ -16,10 +16,15 @@ export default function Home() {
   } else {
     return (
       <View style={styles.container}>
+
         <View style={{ alignItems: "center" }}>
           <Text style={[styles.title]}>
             Cos<Text style={{ fontWeight: "normal", color: palette.green3 }}>Pack</Text>
           </Text>
+          <View style={{ width: 200, height: 200, }}>
+            <Image source={require("./../../public/LuggageTempLogo.png")}
+              style={{ width: 200, height: 200, marginBottom: 10 }} />
+          </View>
         </View>
         <TouchableOpacity onPress={toggleCosplays}>
           <Text style={[styles.input, styles.button, { backgroundColor: palette.green4 }]}>
@@ -45,8 +50,7 @@ const styles = StyleSheet.create({
   title: {
     color: "grey",
     fontWeight: "bold",
-    fontSize: 50,
-    margin: 30
+    fontSize: 50
   },
   input: {
     borderWidth: 1,
