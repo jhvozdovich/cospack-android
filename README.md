@@ -140,7 +140,7 @@ Comments:
 * [Expo Image Picker](https://docs.expo.io/versions/latest/sdk/imagepicker/)
 * [Temp Porpoise Logo](https://www.vexels.com/png-svg/preview/153196/jumping-dolphin-colored-stroke-icon)
 * [Temp Luggage Logo](https://www.vexels.com/png-svg/preview/153302/rolling-luggage-colored-stroke-icon)
-* Photographers: 
+* Photographers: Catwoman (@shashinkacosphoto), Daenerys (@ministerofwaffles), Ember (@taranicolephotos), Kirari (@marcovercash), Ladybug and Lilith (@caylawithacamera), Mimikyu (@ploppythespaceship), Wendy(@xxjustaghost)
 
 #### License
 
