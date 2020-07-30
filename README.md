@@ -3,7 +3,7 @@
 ### _Capstone Project at Epicodus_
 
 #### Author: **Jessica Hvozdovich**
-#### July 17, 2020
+#### July 30, 2020
 
 <!-- ![Screenshot of Webpage](./public/.png) -->
 
@@ -11,38 +11,43 @@
 
 Cosplayers have a lot to keep track of! Between costumes, props, makeup, repair supplies, toiletries, and miscellaneous gear, so many essentials can be forgotten after a whirlwind of con prep. CosPack is an app that can be used as a cosplay to do list or packing list. Upload a photo and label elements of your costume for a visual checklist go to through before you head out the door for your next big event. Mark items that need repair or need completion, track your progress, and feel confident that you haven’t forgotten that wig you spent two weeks styling, the magic earrings central to your character’s powers, or that expensive as heck 8ft long sword you commissioned.
 
-_This mobile application serves as an interactive, visual checklist application to help cosplayers pack for conventions and photoshoots, preventing forgotten items.  Full CRUD functionality is achieved with React Native and Firebase. A one to many relationship is set up between cosplays and their components._
+_This mobile application serves as an interactive, visual checklist application to help cosplayers pack for conventions and photoshoots, preventing forgotten items.  Full CRUD functionality is achieved with React Native and Firebase. A one to many relationship is set up between cosplays and their components in a NoSQL database._
 
 ### Instructions for use:
-<!-- * Non android users will need an emulator! FIND INSTRUCTIONS -->
+These instructions and the code have been tested on an android device. Feel free to leave a bug report or email me if you have any trouble!
 
 1. Open Terminal (macOS) or PowerShell (Windows)
-2. To download the project Directory to your desktop enter the following commands:
+2. To download the project directory to your desktop enter the following commands:
 ```
 cd Desktop
-git clone https://github.com/jhvozdovich/cospack.git
-cd cospack
+git clone https://github.com/jhvozdovich/cospack-android.git
+cd cospack-android
 ```
 3. To view the downloaded files, open them in a text editor or IDE of your choice.
-* if you have VSCode for example, when your terminal is within the main project Directory you can open all of the files with the command:
+* If you have VSCode for example, when your terminal is within the main project directory you can open all of the files with the command:
 ```
 code .
 ```
 4. Download node and node package manager if they are not already installed on your device. You can find further instructions [here](https://www.learnhowtoprogram.com/intermediate-javascript/getting-started-with-javascript-8d3b52cf-3755-481d-80c5-46f1d3a8ffeb/installing-node-js-14f2721a-61e0-44b3-af1f-73f17348c8f4).
-5. Run npm install in your terminal to download the necessary dependencies, plugins, and modules.
+5. Download the Expo CLI if it is not already installed on your device.
+```
+npm install -g expo-cli
+```
+6. Run npm install in your terminal to download the necessary dependencies, plugins, and modules.
 ```
 npm install
 ```
-6. The command npm run start will build and open the compiled code in a browser of your choice using a local host.
+7. Install the Expo client app on your [android](https://play.google.com/store/apps/details?id=host.exp.exponent&hl=en_US) or [iOS](https://apps.apple.com/us/app/expo-client/id982107779) mobile device.
+8. The command npm start will build and open the compiled code in a browser of your choice using a local host.
 ```
 npm start
 ```
-7. Install the Expo app on your android phone from the Google Play store and scan the QR code in the terminal or the live share to run the app on your divice.
+9. Open the Expo client app, select Scan QR Code, and scan the QR code in the terminal or the local host webpage to run the app on your device. 
 
 
 ### Known Bugs
 
-* Troubleshooting div wrapping within columns. Exploring flexbox in CSS.
+* Attempting to edit or add elements to the last element in the sorted list of cosplays, or most recent cosplay if unsorted, exits back to the main cosplay list from both the edit and add elements input pages.
 
 ### Support and Contact Information
 
@@ -53,10 +58,10 @@ _Have a bug or an issue with this application? [Open a new issue](https://github
 
 * React Native
 * Redux
-* JSX
 * JavaScript
 * Jest
 * CSS
+* Expo
 * Git and GitHub
 
 ### Project Structure
@@ -80,15 +85,21 @@ _Have a bug or an issue with this application? [Open a new issue](https://github
 | **User can delete a cosplay element** | User Input: "Delete" | Output: “Are you sure you want to remove *-Element Name-*?" |
 | **User can confirm deletion of a cosplay element** | User Input: "Are you sure? Yes" | Output: “Element Removed, Return to List View" |
 | **User upload a photo of a cosplay** | User Input: "Add photo" | Output: “Detail Page has photo, blank choose your character stock previously" |
+| **User can only see their own cosplay data** | User Input: "Login" | Output: “User Projects only in display and details, link with user id?" |
+
+### Wireframes
+<img src="./public/Wireframes/CosPackHome.png" width=30% /> <img src="./public/Wireframes/CosPackLoading.png" width=30% />  <img src="./public/Wireframes/CosPackCosplayList.png" width=30% /> 
+<img src="./public/Wireframes/CosPackChecklist.png" width=30% /> <img src="./public/Wireframes/CosPackCosplayDetails.png" width=30% /> <img src="./public/Wireframes/CosPackElementDetails.png" width=30% /> 
+
+### Stretch Goals
+| Spec | Input | Output |
+| :------------- | :------------- | :------------- |
 | **User can link cosplay elements to different parts of the photo** | User Input: "Zoom and Select/Draw/Highlight?" | Output: “Element Linked" |
 | **User can sign up** | User Input: "username, password, email" | Output: "Home Page" |
 | **Error displays if username or email is already in use** | User Input: "username, password, email" | Output: "Sorry an account already exists with this name!" |
 | **User can login** | User Input: "username, password" | Output: "Home Page" |
 | **Error displays for invalid credentials** | User Input: "username, password" | Output: “Sorry your username or password was incorrect!" |
-| **User can only see their own cosplay data** | User Input: "Login" | Output: “User Projects only in display and details, link with user id?" |
 
-
-### Stretch Goals
 * Calendar for project planning, deadlines, and scheduling
 * User can draw on photos to color code items as complete, missing, broken, or in progress
 * Templates are added with common items like wig, shoes, contacts
@@ -119,9 +130,11 @@ Comments:
 * Link item shared between multiple cosplays
 
 ### References
+* [Setting up Expo CLI with React Native](https://reactnative.dev/docs/environment-setup)
 * [React Native and Firebase](https://www.youtube.com/watch?v=s-kKhO9nnEY&list=PLqtWgQ5BRLPvbmeIYf769yb25g4W8NUZo)
 * [Expo Image Picker](https://docs.expo.io/versions/latest/sdk/imagepicker/)
 * [Temp Porpoise Logo](https://www.vexels.com/png-svg/preview/153196/jumping-dolphin-colored-stroke-icon)
+* Photographers: 
 
 #### License
 
