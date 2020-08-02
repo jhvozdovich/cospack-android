@@ -1,3 +1,4 @@
+
 # **CosPack**
 
 ### _Capstone Project at Epicodus_
@@ -9,13 +10,38 @@
 
 ### Description
 
-Cosplayers have a lot to keep track of! Between costumes, props, makeup, repair supplies, toiletries, and miscellaneous gear, so many essentials can be forgotten after a whirlwind of con prep. CosPack is an app that can be used as a cosplay to do list or packing list. Upload a photo and label elements of your costume for a visual checklist go to through before you head out the door for your next big event. Mark items that need repair or need completion, track your progress, and feel confident that you haven’t forgotten that wig you spent two weeks styling, the magic earrings central to your character’s powers, or that expensive as heck 8ft long sword you commissioned.
+Cosplayers have a lot to keep track of! Between costumes, props, makeup, repair supplies, toiletries, and miscellaneous gear, so many essentials can be forgotten after a whirlwind of con prep. CosPack is an app that can be used as a cosplay to do list or packing list. Upload a photo and label elements of your costume for a visual checklist to go through before you head out the door for your next big event. Mark items that need repair or need completion, track your progress, and feel confident that you haven’t forgotten that wig you spent two weeks styling, the magic earrings central to your character’s powers, or that expensive as heck 8ft long sword you commissioned.
 
-_This mobile application serves as an interactive, visual checklist application to help cosplayers pack for conventions and photoshoots, preventing forgotten items.  Full CRUD functionality is achieved with React Native and Firebase. A one to many relationship is set up between cosplays and their components in a NoSQL database._
+_This mobile application serves as an interactive, visual checklist application to help cosplayers pack for conventions and photoshoots, preventing forgotten items.  Full CRUD functionality is achieved with React Native and Firebase. A one to many relationship is set up between cosplays and their elements in a NoSQL database._
 
 <img src="./public/DemoVideos/HomeNav.gif" width=30% /> <img src="./public/DemoVideos/ListNav.gif" width=30% /> <img src="./public/DemoVideos/ElementNav.gif" width=30% />
+
 ### Instructions for use:
 These instructions and the code have been tested on an android device. Feel free to leave a bug report or email me if you have any trouble!
+
+Firebase Database Setup
+
+1. Create a free Firebase account [here](https://firebase.google.com/)
+2. Once logged in click the "Go To Console" button in the top right corner
+3. Select "Add Project," enter a name (cospack) > disable or enable google analytics > select default account for firebase or another of your choosing > create project
+4. Navigate to your new project and select the web application button ( </> )
+5. Nickname the app (cospack), hosting is not requried, click "register app"
+6. Copy the firebaseConfig text:
+```
+ var firebaseConfig = {
+    apiKey: "XXXXXXX",
+    authDomain: "XXXXXXX.firebaseapp.com",
+    databaseURL: "https://XXXXXX.firebaseio.com",
+    projectId: "XXXXXXXXXXX",
+    storageBucket: "XXXXXXX.appspot.com",
+    messagingSenderId: "XXXXXXXXX",
+    appId: "XXXXXXXXXXX:web:XXXXXXX",
+    measurementId: "XXXXXXXXXX
+  };
+```
+7. You will add this to a config.js file after setting up the app with the instructions below
+
+App Setup
 
 1. Open Terminal (macOS) or PowerShell (Windows)
 2. To download the project directory to your desktop enter the following commands:
@@ -38,12 +64,28 @@ npm install -g expo-cli
 ```
 npm install
 ```
-7. Install the Expo client app on your [android](https://play.google.com/store/apps/details?id=host.exp.exponent&hl=en_US) or [iOS](https://apps.apple.com/us/app/expo-client/id982107779) mobile device.
-8. The command npm start will build and open the compiled code in a browser of your choice using a local host.
+7. Add a config.js file to the main directory of your application:
+```
+touch config.js
+```
+8. Copy the configuration data from the database setup process above in the following format:
+export default config = {
+  apiKey: "XXXXXXXXXXXX",
+  authDomain: "XXXXXXXXXX.firebaseapp.com",
+  databaseURL: "https://XXXXXXXXXX.firebaseio.com",
+  projectId: "XXXXXXXXXX",
+  storageBucket: "XXXXXXXXX.appspot.com",
+  messagingSenderId: "XXXXXXXX",
+  appId: "XXXXXXXX:web:XXXXXXXXXX",
+  measurementId: "XXXXXXXXXX"
+}
+* If you misplaced this information, navigate to your project in Firebase, click the settings gear icon near the top left of the navigation bar, and scroll to the bottom of the page to find the "var firebaseConfig" information.
+9. Install the Expo client app on your [android](https://play.google.com/store/apps/details?id=host.exp.exponent&hl=en_US) or [iOS](https://apps.apple.com/us/app/expo-client/id982107779) mobile device.
+10. The command npm start will build and open the compiled code in a browser of your choice using a local host.
 ```
 npm start
 ```
-9. Open the Expo client app, select Scan QR Code, and scan the QR code in the terminal or the local host webpage to run the app on your device. 
+11. Open the Expo client app, select Scan QR Code, and scan the QR code in the terminal or the local host webpage to run the app on your device. 
 
 <img src="./public/Screenshots/ElementListShort.jpg" width=30% /> <img src="./public/DemoVideos/LongList.gif" width=35% /> <img src="./public/Screenshots/ElementListLong.jpg" width=30% /> 
 
@@ -122,7 +164,7 @@ _Have a bug or an issue with this application? [Open a new issue](https://github
 
 ### User Stories
 * As a cosplayer, I want a packing checklist so that I will be sure to remember all of my supplies before big events.
-* I running on little sleep and still finishing everything before the con so I need a visual, intuitive app that will help walk me through the packing process.
+* I running on little sleep (typo left in for solidarity) and still finishing everything before the con so I need a visual, intuitive app that will help walk me through the packing process.
 * I don't want to stress about forgetting important parts of my costume that I worked hard on!
 * This app needs to be free, easy to use, and secure! I'm on a budget and don't want to fuss with something clunky.
 * The UI should be cute and something I'd want to screenshot and share.
